@@ -1,1 +1,230 @@
-тест
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вы думали все так просто?)</title>
+<meta name="description" content="Настя — студент-предприниматель. Вектум. Студсовет.">
+<style>
+  :root{
+    --bg: #231815; --card: #2d1f1b; --text: #F5EFC6;
+    --muted: #A5BCD6; --accent: #4D0E12; --accent-hover: #6b1419; --line: #4A2E27; --maxw: 900px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;padding:0 20px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:60px 0 80px}
+  header{display:flex;align-items:center;gap:40px;margin-bottom:60px;}
+  @media(max-width:768px){header{flex-direction:column;text-align:center;gap:24px}}
+  .header-text{flex:1}
+  .eyebrow{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:100px;margin-bottom:20px;font-weight:600;}
+  h1{font-size:clamp(34px,5vw,52px);line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-bottom:16px;}
+  h1 .accent{color:var(--muted)}
+  .lead{font-size:18px;color:var(--text);opacity:0.9;max-width:500px;margin-bottom:24px}
+  .header-photo{width:280px;height:340px;object-fit:cover;border-radius:16px;border: 2px solid var(--line);box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+  @media(max-width:768px){.header-photo{width:100%;max-width:320px;height:auto;aspect-ratio:3/4}}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;padding:12px 24px;border-radius:100px;transition:all .2s ease;cursor:pointer;border:none;}
+  .btn-primary{background:var(--accent);color:var(--text)}
+  .btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:transparent}
+  .btn-ghost:hover{border-color:var(--muted);color:var(--muted)}
+  
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px;margin-bottom:24px;}
+  section h2{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;font-weight:700;display:flex;align-items:center;gap:10px;}
+  section h2::after{content:"";flex:1;height:1px;background:var(--line);}
+  section p{color:var(--text);margin-bottom:14px;opacity:0.9}
+  section p:last-child{margin-bottom:0}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+  @media(max-width:600px){.stats{grid-template-columns:1fr}}
+  .stat{background:rgba(165,188,214,0.05);padding:16px;border-radius:12px;text-align:center}
+  .stat .num{font-size:28px;font-weight:800;color:var(--muted);display:block}
+  .stat .desc{font-size:13px;color:var(--text);opacity:0.7;text-transform:uppercase;letter-spacing:.05em}
+
+  .letters-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:600px){.letters-grid{grid-template-columns:1fr}}
+  .letter-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);}
+  .letter-card img{width:100%;height:auto;display:block;transition:transform .3s;}
+  .letter-card:hover img{transform:scale(1.02);}
+  .letter-info{padding:16px;}
+  .letter-info strong{display:block;font-size:15px;margin-bottom:4px;color:var(--muted);}
+  .letter-info span{font-size:14px;color:var(--text);opacity:0.8;}
+
+  .tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+  .tab-btn{background:transparent;border:1px solid var(--line);color:var(--text);padding:8px 16px;border-radius:100px;cursor:pointer;font-size:14px;transition:all .2s;}
+  .tab-btn.active{background:var(--accent);border-color:var(--accent);color:var(--text)}
+  .tab-content{display:none;animation:fadeIn .3s ease}
+  .tab-content.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .v-subtitle{font-size:20px;font-weight:600;margin-bottom:16px;color:var(--muted)}
+  ul.roles{list-style:none;margin:16px 0 0}
+  ul.roles li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+  ul.roles li:last-child{border-bottom:none}
+  ul.roles li::before{content:"→";color:var(--accent);font-weight:700}
+
+  .goals{list-style:none;margin-top:10px;}
+  .goals li{position:relative;padding-left:24px;margin-bottom:12px;font-size:16px;}
+  .goals li::before{content:"★";position:absolute;left:0;color:var(--muted);}
+
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+  @media(max-width:600px){.photo-grid{grid-template-columns:1fr}}
+  .photo-card{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+  .photo-card:hover img{transform:scale(1.05)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{background:var(--bg);border:1px solid var(--line);padding:4px 12px;border-radius:100px;font-size:13px;color:var(--text);opacity:0.8}
+
+  .contacts{display:flex;flex-wrap:wrap;gap:16px}
+  .contacts a{flex:1 1 200px;text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:20px;transition:all .2s;background:rgba(255,255,255,0.02);}
+  .contacts a:hover{border-color:var(--muted);transform:translateY(-2px)}
+  .contacts .label{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .contacts .val{font-weight:600;font-size:16px;word-break:break-all}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;opacity:0.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-text">
+      <span class="eyebrow">Студент-предприниматель</span>
+      <h1>Настя.<br>Делаю <span class="accent">сложное</span> простым.</h1>
+      <p class="lead">Председатель СтудСовета. Запускаю стартап в образовании. Верю, что бизнес — это про людей.</p>
+      <div class="btns">
+        <a class="btn btn-primary" href="https://t.me/Raaaaachell" target="_blank">Написать в Telegram</a>
+        <a class="btn btn-ghost" href="#vektum">Проект Вектум ↓</a>
+      </div>
+    </div>
+    <!-- ТУТ ИСПРАВЛЕНО НА изображение -->
+    <img src="изображение/main.jpg" alt="Настя" class="header-photo">
+  </header>
+
+  <section>
+    <h2>Обо мне</h2>
+    <p>Учусь на предпринимателя. Совмещаю учебу с реальными задачами: руковожу командой из 10 человек, работаю с администрацией вуза и 30 старостами. За прошлый год провели 30+ бизнес-мероприятий.</p>
+    <p>Параллельно работаю бизнес-ассистентом у предпринимателя в IT и участвую в кейс-чемпионатах («КЛЮЧ», Changellenge). Ищу свою нишу и создаю проекты, которые решают реальные проблемы.</p>
+    <div class="stats">
+      <div class="stat"><span class="num">30+</span><span class="desc">мероприятий</span></div>
+      <div class="stat"><span class="num">10</span><span class="desc">в команде</span></div>
+      <div class="stat"><span class="num">2</span><span class="desc">бизнес-идеи</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Благодарственные письма</h2>
+    <p style="margin-bottom:24px; color:var(--muted);">Отмечена деканом факультета за вклад в развитие студенчества и организацию крупных мероприятий.</p>
+    
+    <div class="letters-grid">
+      <!-- ТУТ ТОЖЕ ИСПРАВЛЕНО -->
+      <div class="letter-card">
+        <img src="изображение/letter1.png" alt="Благодарность за дипломы">
+        <div class="letter-info">
+          <strong>Церемонии вручения дипломов</strong>
+          <span>За помощь в подготовке и организации.</span>
+        </div>
+      </div>
+      <div class="letter-card">
+        <img src="изображение/letter2.png" alt="Благодарность за Дни открытых дверей">
+        <div class="letter-info">
+          <strong>Дни Открытых Дверей</strong>
+          <span>За регулярное участие и помощь в общении с абитуриентами.</span>
+        </div>
+      </div>
+      <div class="letter-card">
+        <img src="изображение/letter3.png" alt="Благодарность за СтудСовет">
+        <div class="letter-info">
+          <strong>Развитие СтудСовета</strong>
+          <span>За активное участие в жизни факультета.</span>
+        </div>
+      </div>
+      <div class="letter-card">
+        <img src="изображение/letter4.png" alt="Synergy Woman Forum">
+        <div class="letter-info">
+          <strong>Synergy Woman Forum</strong>
+          <span>За помощь в проведении масштабного события.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vektum">
+    <h2>Флагманский проект: Вектум</h2>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab('client')">Для клиентов</button>
+      <button class="tab-btn" onclick="openTab('investor')">Для инвесторов</button>
+    </div>
+    <div id="client" class="tab-content active">
+      <p class="v-subtitle">Представьте: вы стоите на распутье — творчество или технологии, вуз или работа.</p>
+      <p>А рядом нет человека, который прошёл этот путь и скажет: «Я тоже сомневался, но сделал так — и это сработало».</p>
+      <p>Мы подбираем для вас личного ментора из числа студентов и выпускников университета, которые уже нашли себя. Это не школьный психолог и не скучный тест. Это живой диалог, реальные задачи из профессии и честные ответы на вопрос «А что дальше?».</p>
+      <p>Ваш наставник поможет попробовать профессию на практике. В результате вы получаете ясность, уверенность и пошаговый план. А родители — спокойствие.</p>
+      <p><strong>Первая консультация будет бесплатной.</strong></p>
+    </div>
+    <div id="investor" class="tab-content">
+      <p class="v-subtitle">Профориентация на базе университета «Синергия».</p>
+      <p>Наша цель — помочь подросткам быстро выйти на новую карьерную траекторию, интегрируя их в процесс найма крупных компаний. Только в России 6,5 млн подростков 14–17 лет. Целевой сегмент в крупных городах — 18 млрд рублей и растёт на 10–15% в год.</p>
+      <p><strong>Преимущества:</strong> встроенная воронка через вуз (дешёвый трафик), готовая база наставников (40+ факультетов), помещения и юридическая поддержка. Порог входа практически нулевой.</p>
+      <p>Инвестируя в пилот, вы получаете отработанную бизнес-модель (подписка, пакетные сессии) с минимальными рисками и готовностью к выходу на рынок.</p>
+    </div>
+    <p style="margin-top:24px; font-weight:600; color:var(--muted);">Кого ищу в команду:</p>
+    <ul class="roles">
+      <li>2+ IT-специалиста — чтобы собрать продукт целиком</li>
+      <li>5 волонтёров на выездные группы</li>
+      <li>10 наставников — тех, кто проведёт школьника к понятному «куда дальше»</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Цели / Мечты</h2>
+    <p style="margin-bottom:20px;">Пока все хотят просто заработать миллион, я мыслю масштабнее.</p>
+    <ul class="goals">
+      <li>Сделать бизнес, который принесет монополию в своей нише.</li>
+      <li>Найти команду таких же активных и заряженных на победу людей.</li>
+      <li>Создать собственное бизнес-сообщество и крупный бизнес-форум.</li>
+      <li>Написать собственную книгу.</li>
+      <li>... и это только начало пути.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Beyond work</h2>
+    <p>Вне учебы и проектов я читаю философию (Эрих Фромм, Макиавелли, Марк Аврелий, Карл Юнг, Фрейд) и деловую литературу (Ицхак Адизес — прочитала почти все книги).</p>
+    <p>Я меломан — не могу работать без музыки на фоне. Веду канал в Telegram, где разбираю когнитивные искажения, феномены и иногда книги.</p>
+    <div class="tags">
+      <span class="tag">Эрих Фромм</span><span class="tag">Никколо Макиавелли</span><span class="tag">Карл Маркс</span><span class="tag">Марк Аврелий</span><span class="tag">Карл Густав Юнг</span><span class="tag">Зигмунд Фрейд</span><span class="tag">Ицхак Адизес</span>
+    </div>
+    <div class="photo-grid">
+      <!-- И ТУТ -->
+      <div class="photo-card"><img src="изображение/flowers.jpg" alt="Цветы"></div>
+      <div class="photo-card"><img src="изображение/sun.jpg" alt="Солнце"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Связаться со мной</h2>
+    <p style="margin-bottom:20px; color:var(--muted)">Есть идея, проект или предложение? Пишите — в Telegram отвечаю быстрее всего.</p>
+    <div class="contacts">
+      <a href="https://t.me/Raaaaachell" target="_blank"><span class="label">Telegram</span><span class="val">@Raaaaachell</span></a>
+      <a href="https://t.me/tHiThinK" target="_blank"><span class="label">Мой канал</span><span class="val">@tHiThinK</span></a>
+      <a href="mailto:ne647641@gmail.com"><span class="label">Почта</span><span class="val">ne647641@gmail.com</span></a>
+      <a href="https://vk.ru/n.nnaastya" target="_blank"><span class="label">ВК</span><span class="val">vk.ru/n.nnaastya</span></a>
+    </div>
+  </section>
+
+  <footer>Настя · Вектум · Сделано с умом</footer>
+</div>
+
+<script>
+  function openTab(tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) { tabcontent[i].classList.remove("active"); }
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
+    document.getElementById(tabName).classList.add("active");
+    event.currentTarget.classList.add("active");
+  }
+</script>
+</body>
+</html>
