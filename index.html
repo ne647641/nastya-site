@@ -4,102 +4,197 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Вы думали все так просто?)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #231815; --card: #2d1f1b; --text: #F5EFC6;
-    --muted: #A5BCD6; --accent: #4D0E12; --accent-hover: #6b1419; --line: #4A2E27; --maxw: 900px;
+    /* Твоя новая палитра */
+    --bg: #F5EFC6;         /* Mother of Pearl (светлый фон) */
+    --card: #FFFFFF;       /* Белые карточки */
+    --text: #1A1A1A;       /* Почти черный текст */
+    --muted: #666666;      /* Серый для второстепенного */
+    --accent: #13273F;     /* Mystic Navy (глубокий синий) */
+    --accent-hover: #1E3A5F;
+    --red: #4E0000;        /* Red Inferno (винный) */
+    --line: #E0DCD0;       /* Границы */
+    --radius: 24px;        /* Скругления как на референсе */
+    --maxw: 1000px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;padding:0 20px;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:60px 0 80px}
-  header{display:flex;align-items:center;gap:40px;margin-bottom:60px;}
-  @media(max-width:768px){header{flex-direction:column;text-align:center;gap:24px}}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height:1.6;
+    padding:0 20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:60px 0 100px}
+
+  /* Анимация появления */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ХЕДЕР */
+  header{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    margin-bottom:80px;
+  }
+  @media(max-width:768px){header{flex-direction:column;text-align:center;gap:30px}}
   .header-text{flex:1}
-  .eyebrow{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:100px;margin-bottom:20px;font-weight:600;}
-  h1{font-size:clamp(34px,5vw,52px);line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-bottom:16px;}
-  h1 .accent{color:var(--muted)}
-  .lead{font-size:18px;color:var(--text);opacity:0.9;max-width:500px;margin-bottom:24px}
-  .header-photo{width:280px;height:340px;object-fit:cover;border-radius:16px;border: 2px solid var(--line);box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-  @media(max-width:768px){.header-photo{width:100%;max-width:320px;height:auto;aspect-ratio:3/4}}
-  .btns{display:flex;flex-wrap:wrap;gap:12px}
-  .btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;padding:12px 24px;border-radius:100px;transition:all .2s ease;border:none;}
-  .btn-primary{background:var(--accent);color:var(--text)}
-  .btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px)}
-  .btn-ghost{border:1px solid var(--line);color:var(--text);background:transparent}
-  .btn-ghost:hover{border-color:var(--muted);color:var(--muted)}
+  .eyebrow{
+    display:inline-block;
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    background:rgba(19,39,63,0.1);
+    padding:8px 16px;
+    border-radius:100px;
+    margin-bottom:24px;
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(40px,6vw,64px);
+    line-height:1.05;
+    font-weight:800;
+    letter-spacing:-0.03em;
+    margin-bottom:24px;
+    color: var(--accent);
+  }
+  h1 span{color:var(--red)}
+  .lead{font-size:18px;color:var(--muted);max-width:500px;margin-bottom:32px}
   
-  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px;margin-bottom:24px;}
-  section h2{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;font-weight:700;display:flex;align-items:center;gap:10px;}
-  section h2::after{content:"";flex:1;height:1px;background:var(--line);}
-  section p{color:var(--text);margin-bottom:14px;opacity:0.9}
+  .header-photo{
+    width:320px;
+    height:400px;
+    object-fit:cover;
+    border-radius:var(--radius);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  }
+  @media(max-width:768px){.header-photo{width:100%;max-width:320px;height:auto;aspect-ratio:4/5}}
+
+  .btns{display:flex;flex-wrap:wrap;gap:16px}
+  .btn{
+    display:inline-block;
+    text-decoration:none;
+    font-weight:600;
+    font-size:16px;
+    padding:16px 32px;
+    border-radius:100px;
+    transition:all .3s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 10px 20px rgba(19,39,63,0.2)}
+  .btn-ghost{border:1px solid var(--line);color:var(--accent);background:transparent}
+  .btn-ghost:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* СЕКЦИИ */
+  section{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:48px;
+    margin-bottom:30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.02);
+  }
+  @media(max-width:768px){section{padding:30px}}
+  
+  section h2{
+    font-size:13px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:32px;
+    font-weight:600;
+  }
+  section p{color:var(--text);margin-bottom:18px;font-size:16px;line-height:1.7}
   section p:last-child{margin-bottom:0}
 
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
   @media(max-width:600px){.stats{grid-template-columns:1fr}}
-  .stat{background:rgba(165,188,214,0.05);padding:16px;border-radius:12px;text-align:center}
-  .stat .num{font-size:28px;font-weight:800;color:var(--muted);display:block}
-  .stat .desc{font-size:13px;color:var(--text);opacity:0.7;text-transform:uppercase;letter-spacing:.05em}
+  .stat{background:var(--bg);padding:24px;border-radius:16px;text-align:center}
+  .stat .num{font-size:32px;font-weight:800;color:var(--red);display:block;margin-bottom:4px}
+  .stat .desc{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 
-  /* СЛАЙДЕР */
-  .slider-container {position: relative; max-width: 600px; margin: 0 auto; padding-bottom: 40px;}
-  .slide { display: none; text-align: center; animation: fadeIn 0.4s ease; }
+  /* СЛАЙДЕР ПИСЕМ */
+  .slider-container {position: relative; max-width: 700px; margin: 0 auto;}
+  .slide { display: none; text-align: center; animation: fadeIn 0.5s ease; }
   .slide.active { display: block; }
-  .slide img { width: 100%; max-height: 500px; object-fit: contain; border-radius: 12px; cursor: pointer; transition: transform 0.2s; background: #fff;}
-  .slide img:hover { transform: scale(1.02); }
-  .slide-info { margin-top: 20px; }
-  .slide-info strong { display: block; font-size: 18px; margin-bottom: 8px; color: var(--muted); }
-  .slide-info span { font-size: 15px; color: var(--text); opacity: 0.8; }
+  .slide img { width: 100%; max-height: 550px; object-fit: contain; border-radius: 12px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.1);}
+  .slide-info { margin-top: 24px; }
+  .slide-info strong { display: block; font-size: 20px; margin-bottom: 8px; color: var(--accent); font-weight: 800;}
+  .slide-info span { font-size: 15px; color: var(--muted); }
   
-  .slider-nav { text-align: center; margin-top: 20px; }
-  .slider-btn { background: var(--bg); border: 1px solid var(--line); color: var(--text); padding: 10px 20px; font-size: 18px; cursor: pointer; border-radius: 8px; transition: 0.2s; }
-  .slider-btn:hover { background: var(--accent); border-color: var(--accent); }
-  .slider-dots { text-align: center; margin-top: 15px; }
-  .dot { cursor: pointer; height: 10px; width: 10px; margin: 0 5px; background-color: var(--line); border-radius: 50%; display: inline-block; transition: background-color 0.3s; }
-  .dot.active, .dot:hover { background-color: var(--muted); }
+  .slider-nav { display: flex; justify-content: center; gap: 16px; margin-top: 30px; }
+  .slider-btn { background: #fff; border: 1px solid var(--line); color: var(--accent); width: 50px; height: 50px; font-size: 20px; cursor: pointer; border-radius: 50%; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
+  .slider-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .slider-dots { text-align: center; margin-top: 20px; }
+  .dot { cursor: pointer; height: 8px; width: 8px; margin: 0 6px; background-color: var(--line); border-radius: 50%; display: inline-block; transition: background-color 0.3s; }
+  .dot.active, .dot:hover { background-color: var(--accent); }
 
-  .tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap}
-  .tab-btn{background:transparent;border:1px solid var(--line);color:var(--text);padding:8px 16px;border-radius:100px;cursor:pointer;font-size:14px;transition:all .2s;}
-  .tab-btn.active{background:var(--accent);border-color:var(--accent);color:var(--text)}
-  .tab-content{display:none;animation:fadeIn .3s ease}
+  /* ВЕКТУМ */
+  .tabs{display:flex;gap:12px;margin-bottom:30px;flex-wrap:wrap}
+  .tab-btn{background:transparent;border:1px solid var(--line);color:var(--muted);padding:12px 24px;border-radius:100px;cursor:pointer;font-size:15px;font-weight:600;transition:all .2s;}
+  .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .tab-content{display:none;animation:fadeIn .4s ease}
   .tab-content.active{display:block}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-  .v-subtitle{font-size:20px;font-weight:600;margin-bottom:16px;color:var(--muted)}
-  ul.roles{list-style:none;margin:16px 0 0}
-  ul.roles li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+  .v-subtitle{font-size:22px;font-weight:700;margin-bottom:20px;color:var(--accent)}
+  ul.roles{list-style:none;margin-top:24px;background:var(--bg);padding:24px;border-radius:16px;}
+  ul.roles li{padding:12px 0;border-bottom:1px solid rgba(0,0,0,0.05);display:flex;gap:12px;font-weight:500;}
   ul.roles li:last-child{border-bottom:none}
-  ul.roles li::before{content:"→";color:var(--accent);font-weight:700}
+  ul.roles li::before{content:"→";color:var(--red);font-weight:800}
 
-  .goals{list-style:none;margin-top:10px;}
-  .goals li{position:relative;padding-left:24px;margin-bottom:12px;font-size:16px;}
-  .goals li::before{content:"★";position:absolute;left:0;color:var(--muted);}
+  /* ЦЕЛИ */
+  .goals{list-style:none;margin-top:16px;}
+  .goals li{position:relative;padding-left:32px;margin-bottom:16px;font-size:18px;font-weight:500;}
+  .goals li::before{content:"★";position:absolute;left:0;color:var(--red);font-size:20px;}
 
-  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+  /* ФОТО В БЛОКЕ ХОББИ */
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
   @media(max-width:600px){.photo-grid{grid-template-columns:1fr}}
-  .photo-card{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-  .photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+  .photo-card{border-radius:16px;overflow:hidden;}
+  .photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
   .photo-card:hover img{transform:scale(1.05)}
-  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .tag{background:var(--bg);border:1px solid var(--line);padding:4px 12px;border-radius:100px;font-size:13px;color:var(--text);opacity:0.8}
+  .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .tag{background:var(--bg);padding:6px 16px;border-radius:100px;font-size:14px;color:var(--accent);font-weight:500;}
 
-  .contacts{display:flex;flex-wrap:wrap;gap:16px}
-  .contacts a{flex:1 1 200px;text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:20px;transition:all .2s;background:rgba(255,255,255,0.02);}
-  .contacts a:hover{border-color:var(--muted);transform:translateY(-2px)}
-  .contacts .label{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-  .contacts .val{font-weight:600;font-size:16px;word-break:break-all}
-  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;opacity:0.6}
+  /* КОНТАКТЫ */
+  .contacts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:600px){.contacts{grid-template-columns:1fr}}
+  .contacts a{
+    text-decoration:none;color:var(--text);
+    border:1px solid var(--line);border-radius:16px;padding:24px;
+    transition:all .3s;background:#fff;
+  }
+  .contacts a:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 20px rgba(19,39,63,0.05)}
+  .contacts .label{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .contacts .val{font-weight:700;font-size:18px;color:var(--accent);word-break:break-all}
+
+  footer{text-align:center;color:var(--muted);font-size:14px;margin-top:60px;font-weight:500;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header>
+  <!-- БЛОК 1: ОБО МНЕ (ХЕДЕР) -->
+  <header class="fade-in">
     <div class="header-text">
       <span class="eyebrow">Студент-предприниматель</span>
-      <h1>Настя.<br>Делаю <span class="accent">сложное</span> простым.</h1>
+      <h1>Настя.<br>Делаю <span>сложное</span> простым.</h1>
       <p class="lead">Председатель СтудСовета. Запускаю стартап в образовании. Верю, что бизнес — это про людей.</p>
       <div class="btns">
-        <!-- ССЫЛКА НА ТГ В КНОПКЕ -->
         <a class="btn btn-primary" href="https://t.me/Raaaaachell" target="_blank">Написать в Telegram</a>
         <a class="btn btn-ghost" href="#vektum">Проект Вектум ↓</a>
       </div>
@@ -107,7 +202,7 @@
     <img src="https://ne647641.github.io/nastya-site/img/main.jpg" alt="Настя" class="header-photo">
   </header>
 
-  <section>
+  <section class="fade-in">
     <h2>Обо мне</h2>
     <p>Учусь на предпринимателя. Совмещаю учебу с реальными задачами: руковожу командой из 10 человек, работаю с администрацией вуза и 30 старостами. За прошлый год провели 30+ бизнес-мероприятий.</p>
     <p>Параллельно работаю бизнес-ассистентом у предпринимателя в IT и участвую в кейс-чемпионатах («КЛЮЧ», Changellenge). Ищу свою нишу и создаю проекты, которые решают реальные проблемы.</p>
@@ -118,53 +213,49 @@
     </div>
   </section>
 
-  <!-- БЛОК СЛАЙДЕРА (теперь 3 письма) -->
-  <section>
-    <h2>Благодарственные письма</h2>
-    <p style="margin-bottom:24px; color:var(--muted);">Отмечена деканом факультета за вклад в развитие студенчества и организацию крупных мероприятий.</p>
+  <!-- БЛОК 2: ДОСТИЖЕНИЯ (СЛАЙДЕР) -->
+  <section class="fade-in">
+    <h2>Мои достижения</h2>
+    <p style="margin-bottom:32px;">Отмечена деканом факультета за вклад в развитие студенчества и организацию крупных мероприятий.</p>
     
     <div class="slider-container">
-      
       <div class="slide active">
-        <img src="https://ne647641.github.io/nastya-site/img/letter1.jpg" alt="Письмо 1" onclick="window.open(this.src, '_blank')" title="Нажмите, чтобы открыть в полном размере">
+        <img src="https://ne647641.github.io/nastya-site/img/letter1.jpg" alt="Письмо 1" onclick="window.open(this.src, '_blank')" title="Нажмите, чтобы открыть">
         <div class="slide-info">
           <strong>Церемонии вручения дипломов</strong>
           <span>За помощь в подготовке и организации.</span>
         </div>
       </div>
-
       <div class="slide">
-        <img src="https://ne647641.github.io/nastya-site/img/letter2.jpg" alt="Письмо 2" onclick="window.open(this.src, '_blank')" title="Нажмите, чтобы открыть в полном размере">
+        <img src="https://ne647641.github.io/nastya-site/img/letter2.jpg" alt="Письмо 2" onclick="window.open(this.src, '_blank')" title="Нажмите, чтобы открыть">
         <div class="slide-info">
           <strong>Дни Открытых Дверей</strong>
           <span>За регулярное участие и помощь в общении с абитуриентами.</span>
         </div>
       </div>
-
       <div class="slide">
-        <img src="https://ne647641.github.io/nastya-site/img/letter3.jpg" alt="Письмо 3" onclick="window.open(this.src, '_blank')" title="Нажмите, чтобы открыть в полном размере">
+        <img src="https://ne647641.github.io/nastya-site/img/letter3.jpg" alt="Письмо 3" onclick="window.open(this.src, '_blank')" title="Нажмите, чтобы открыть">
         <div class="slide-info">
           <strong>Развитие СтудСовета</strong>
           <span>За активное участие в жизни факультета.</span>
         </div>
       </div>
-
       <div class="slider-nav">
         <button class="slider-btn" onclick="changeSlide(-1)">←</button>
         <button class="slider-btn" onclick="changeSlide(1)">→</button>
       </div>
-
       <div class="slider-dots">
         <span class="dot active" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
         <span class="dot" onclick="currentSlide(3)"></span>
       </div>
-
     </div>
   </section>
 
-  <section id="vektum">
-    <h2>Флагманский проект: Вектум</h2>
+  <!-- БЛОК 3: ВЕКТУМ -->
+  <section id="vektum" class="fade-in">
+    <h2>Флагманский проект</h2>
+    <h3 style="font-size:28px; font-weight:800; color:var(--accent); margin-bottom:20px;">Вектум</h3>
     <div class="tabs">
       <button class="tab-btn active" onclick="openTab('client')">Для клиентов</button>
       <button class="tab-btn" onclick="openTab('investor')">Для инвесторов</button>
@@ -173,16 +264,14 @@
       <p class="v-subtitle">Представьте: вы стоите на распутье — творчество или технологии, вуз или работа.</p>
       <p>А рядом нет человека, который прошёл этот путь и скажет: «Я тоже сомневался, но сделал так — и это сработало».</p>
       <p>Мы подбираем для вас личного ментора из числа студентов и выпускников университета, которые уже нашли себя. Это не школьный психолог и не скучный тест. Это живой диалог, реальные задачи из профессии и честные ответы на вопрос «А что дальше?».</p>
-      <p>Ваш наставник поможет попробовать профессию на практике. В результате вы получаете ясность, уверенность и пошаговый план. А родители — спокойствие.</p>
       <p><strong>Первая консультация будет бесплатной.</strong></p>
     </div>
     <div id="investor" class="tab-content">
       <p class="v-subtitle">Профориентация на базе университета «Синергия».</p>
-      <p>Наша цель — помочь подросткам быстро выйти на новую карьерную траекторию, интегрируя их в процесс найма крупных компаний. Только в России 6,5 млн подростков 14–17 лет. Целевой сегмент в крупных городах — 18 млрд рублей и растёт на 10–15% в год.</p>
-      <p><strong>Преимущества:</strong> встроенная воронка через вуз (дешёвый трафик), готовая база наставников (40+ факультетов), помещения и юридическая поддержка. Порог входа практически нулевой.</p>
-      <p>Инвестируя в пилот, вы получаете отработанную бизнес-модель (подписка, пакетные сессии) с минимальными рисками и готовностью к выходу на рынок.</p>
+      <p>Наша цель — помочь подросткам быстро выйти на новую карьерную траекторию. Только в России 6,5 млн подростков 14–17 лет. Целевой сегмент в крупных городах — 18 млрд рублей и растёт на 10–15% в год.</p>
+      <p><strong>Преимущества:</strong> встроенная воронка через вуз, готовая база наставников (40+ факультетов), помещения и юридическая поддержка. Порог входа практически нулевой.</p>
     </div>
-    <p style="margin-top:24px; font-weight:600; color:var(--muted);">Кого ищу в команду:</p>
+    <p style="margin-top:30px; font-weight:600; color:var(--accent);">Кого ищу в команду:</p>
     <ul class="roles">
       <li>2+ IT-специалиста — чтобы собрать продукт целиком</li>
       <li>5 волонтёров на выездные группы</li>
@@ -190,9 +279,9 @@
     </ul>
   </section>
 
-  <section>
-    <h2>Цели / Мечты</h2>
-    <p style="margin-bottom:20px;">Пока все хотят просто заработать миллион, я мыслю масштабнее.</p>
+  <!-- БЛОК 4: ЦЕЛИ -->
+  <section class="fade-in">
+    <h2>Мои цели</h2>
     <ul class="goals">
       <li>Сделать бизнес, который принесет монополию в своей нише.</li>
       <li>Найти команду таких же активных и заряженных на победу людей.</li>
@@ -202,12 +291,13 @@
     </ul>
   </section>
 
-  <section>
-    <h2>Beyond work</h2>
-    <p>Вне учебы и проектов я читаю философию (Эрих Фромм, Макиавелли, Марк Аврелий, Карл Юнг, Фрейд) и деловую литературу (Ицхак Адизес — прочитала почти все книги).</p>
+  <!-- БЛОК 5: Я ВНЕ РАБОТЫ -->
+  <section class="fade-in">
+    <h2>Я вне работы</h2>
+    <p>Вне учебы и проектов я читаю философию (Эрих Фромм, Макиавелли, Марк Аврелий, Карл Юнг, Фрейд) и деловую литературу (Ицхак Адизес).</p>
     <p>Я меломан — не могу работать без музыки на фоне. Веду канал в Telegram, где разбираю когнитивные искажения, феномены и иногда книги.</p>
     <div class="tags">
-      <span class="tag">Эрих Фромм</span><span class="tag">Никколо Макиавелли</span><span class="tag">Карл Маркс</span><span class="tag">Марк Аврелий</span><span class="tag">Карл Густав Юнг</span><span class="tag">Зигмунд Фрейд</span><span class="tag">Ицхак Адизес</span>
+      <span class="tag">Эрих Фромм</span><span class="tag">Макиавелли</span><span class="tag">Карл Юнг</span><span class="tag">Фрейд</span><span class="tag">Ицхак Адизес</span>
     </div>
     <div class="photo-grid">
       <div class="photo-card"><img src="https://ne647641.github.io/nastya-site/img/flowers.jpg" alt="Цветы"></div>
@@ -215,22 +305,48 @@
     </div>
   </section>
 
-  <section>
-    <h2>Связаться со мной</h2>
-    <p style="margin-bottom:20px; color:var(--muted)">Есть идея, проект или предложение? Пишите — в Telegram отвечаю быстрее всего.</p>
+  <!-- БЛОК 6: КОНТАКТЫ -->
+  <section class="fade-in">
+    <h2>Контакты</h2>
+    <p style="margin-bottom:30px;">Есть идея, проект или предложение? Пишите — в Telegram отвечаю быстрее всего.</p>
     <div class="contacts">
-      <!-- ССЫЛКИ В КОНТАКТАХ -->
-      <a href="https://t.me/Raaaaachell" target="_blank"><span class="label">Telegram</span><span class="val">@Raaaaachell</span></a>
-      <a href="https://t.me/tHiThinK" target="_blank"><span class="label">Мой канал</span><span class="val">@tHiThinK</span></a>
-      <a href="mailto:ne647641@gmail.com"><span class="label">Почта</span><span class="val">ne647641@gmail.com</span></a>
-      <a href="https://vk.ru/n.nnaastya" target="_blank"><span class="label">ВК</span><span class="val">vk.ru/n.nnaastya</span></a>
+      <a href="https://t.me/Raaaaachell" target="_blank">
+        <span class="label">Telegram</span>
+        <span class="val">@Raaaaachell</span>
+      </a>
+      <a href="https://t.me/tHiThinK" target="_blank">
+        <span class="label">Мой канал</span>
+        <span class="val">@tHiThinK</span>
+      </a>
+      <a href="mailto:ne647641@gmail.com">
+        <span class="label">Почта</span>
+        <span class="val">ne647641@gmail.com</span>
+      </a>
+      <a href="https://vk.ru/n.nnaastya" target="_blank">
+        <span class="label">ВКонтакте</span>
+        <span class="val">vk.ru/n.nnaastya</span>
+      </a>
     </div>
   </section>
 
-  <footer>Настя · Вектум · Сделано с умом</footer>
+  <footer>Настя · 2026</footer>
 </div>
 
 <script>
+  // Анимация появления при скролле
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Логика вкладок Вектума
   function openTab(tabName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tab-content");
@@ -241,16 +357,12 @@
     event.currentTarget.classList.add("active");
   }
 
+  // Логика слайдера
   let slideIndex = 1;
   showSlides(slideIndex);
 
-  function changeSlide(n) {
-    showSlides(slideIndex += n);
-  }
-
-  function currentSlide(n) {
-    showSlides(slideIndex = n);
-  }
+  function changeSlide(n) { showSlides(slideIndex += n); }
+  function currentSlide(n) { showSlides(slideIndex = n); }
 
   function showSlides(n) {
     let i;
