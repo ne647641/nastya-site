@@ -4,290 +4,332 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Вы думали все так просто?)</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg: #E2E8F8;         /* Нежно-голубой фон как на референсе */
-    --card: #FFFFFF;       /* Белые карточки */
-    --text: #1A202C;       /* Темно-серый текст */
-    --accent: #1E3A8A;     /* Глубокий синий для заголовков */
-    --accent-light: #8BA3E6; /* Светло-синий для акцентов */
-    --radius: 32px;        /* Очень большие скругления */
+  :root {
+    --bg-color: #DCE6FA; /* Светло-голубой фон */
+    --blue-dark: #0F1C3F; /* Чернильный */
+    --blue-mid: #3A5A9C; /* Средний синий */
+    --blue-light: #A4BDE8; /* Пастельный синий */
+    --white: #FFFFFF;
+    --radius-lg: 40px;
+    --radius-md: 24px;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height:1.6;
-    padding:40px 20px;
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-color);
+    color: var(--blue-dark);
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.5;
+    padding: 40px 20px;
   }
-  .wrap{max-width:900px;margin:0 auto;}
 
-  /* Анимация */
-  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-  /* Карточки */
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
+  /* Общие стили для блоков */
+  .block {
+    background: var(--white);
+    border-radius: var(--radius-lg);
     padding: 40px;
-    margin-bottom: 24px;
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.05);
+    box-shadow: 0 10px 30px rgba(15, 28, 63, 0.05);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
   }
-  @media(max-width:768px){ .card { padding: 30px 20px; } }
+  .block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-  .card-label {
-    font-size: 12px;
+  /* ТИПОГРАФИКА */
+  h1 {
+    font-size: clamp(40px, 6vw, 64px);
     font-weight: 800;
-    letter-spacing: 0.1em;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  h1 span { color: var(--blue-mid); }
+  
+  .subtitle {
+    font-size: 18px;
+    color: var(--blue-mid);
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 800;
     text-transform: uppercase;
-    color: var(--accent);
+    letter-spacing: 0.1em;
+    color: var(--blue-mid);
     margin-bottom: 20px;
     display: block;
   }
 
-  /* ХЕДЕР */
-  .hero { display: flex; align-items: center; gap: 40px; }
-  @media(max-width:768px){ .hero { flex-direction: column-reverse; text-align: center; gap: 20px; } }
-  .hero-text { flex: 1; }
-  
-  h1 {
-    font-size: clamp(32px, 5vw, 48px);
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--accent);
-    margin-bottom: 20px;
+  /* СЕТКА (Асимметрия) */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
-  
-  .lead { font-size: 16px; color: #4A5568; margin-bottom: 30px; }
+  @media (max-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .block { padding: 30px 20px; }
+  }
+
+  /* БЛОК 1: ХЕДЕР */
+  .hero-block {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: var(--blue-dark);
+    color: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 50px;
+  }
+  .hero-block h1 span { color: var(--blue-light); }
+  .hero-block .subtitle { color: var(--blue-light); }
   
   .hero-img {
-    width: 260px; height: 340px; object-fit: cover; border-radius: 24px;
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 100px 20px 100px 20px; /* Фигурная рамка */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   }
-  @media(max-width:768px){ .hero-img { width: 100%; max-width: 260px; height: auto; aspect-ratio: 3/4; } }
 
-  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
-  @media(max-width:768px){ .btns { justify-content: center; } }
-  
   .btn {
-    display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
-    padding: 14px 28px; border-radius: 100px; transition: all 0.3s ease; cursor: pointer; border: none;
+    display: inline-block;
+    background: var(--blue-mid);
+    color: var(--white);
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-weight: 700;
+    transition: all 0.3s;
+    border: 2px solid transparent;
   }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: #152C6B; transform: translateY(-2px); }
-  .btn-ghost { background: transparent; border: 2px solid var(--accent-light); color: var(--accent); }
-  .btn-ghost:hover { border-color: var(--accent); background: var(--accent); color: #fff;}
+  .btn:hover { background: var(--blue-light); color: var(--blue-dark); }
+  
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--blue-light);
+    color: var(--white);
+    margin-left: 10px;
+  }
+  .btn-outline:hover { background: var(--white); border-color: var(--white); color: var(--blue-dark); }
 
   /* ОБО МНЕ */
-  .about-text p { font-size: 16px; margin-bottom: 16px; color: #4A5568; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
-  @media(max-width:600px){ .stats { grid-template-columns: 1fr; } }
+  .about-text { font-size: 16px; margin-bottom: 20px; color: #333; }
   
-  .stat-box { background: var(--bg); padding: 20px; border-radius: 20px; text-align: center; }
-  .stat-num { font-size: 28px; font-weight: 800; color: var(--accent); display: block; margin-bottom: 4px; }
-  .stat-desc { font-size: 12px; font-weight: 600; color: #4A5568; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stats-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .stat-item {
+    flex: 1;
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+  .stat-item strong { display: block; font-size: 28px; font-weight: 800; color: var(--blue-dark); }
+  .stat-item span { font-size: 12px; font-weight: 700; color: var(--blue-mid); text-transform: uppercase; }
 
-  /* СЛАЙДЕР */
-  .slider-container { position: relative; max-width: 100%; margin: 0 auto; }
-  .slide { display: none; text-align: center; animation: fadeIn 0.5s ease; }
+  /* СЛАЙДЕР ПИСЕМ */
+  .slider-container { position: relative; overflow: hidden; border-radius: var(--radius-md); }
+  .slide { display: none; text-align: center; }
   .slide.active { display: block; }
-  .slide img { width: 100%; max-height: 500px; object-fit: contain; border-radius: 20px; cursor: pointer; background: var(--bg); padding: 10px;}
-  .slide-info { margin-top: 20px; }
-  .slide-info strong { display: block; font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
-  .slide-info span { font-size: 14px; color: #4A5568; }
+  .slide img { width: 100%; max-height: 400px; object-fit: contain; border-radius: var(--radius-md); background: var(--bg-color); padding: 10px; cursor: pointer; }
   
-  .slider-nav { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
-  .slider-btn { background: var(--bg); border: none; color: var(--accent); width: 44px; height: 44px; font-size: 20px; cursor: pointer; border-radius: 50%; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
-  .slider-btn:hover { background: var(--accent); color: #fff; }
-  .slider-dots { text-align: center; margin-top: 16px; }
-  .dot { cursor: pointer; height: 8px; width: 8px; margin: 0 6px; background-color: var(--accent-light); border-radius: 50%; display: inline-block; transition: background-color 0.3s; opacity: 0.5;}
-  .dot.active, .dot:hover { background-color: var(--accent); opacity: 1;}
+  .slider-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+  .slider-dots { display: flex; gap: 8px; }
+  .dot { width: 10px; height: 10px; background: var(--blue-light); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+  .dot.active { background: var(--blue-dark); transform: scale(1.2); }
+  
+  .slider-btn {
+    background: var(--bg-color); border: none; width: 40px; height: 40px;
+    border-radius: 50%; cursor: pointer; font-size: 20px; color: var(--blue-dark);
+    transition: 0.2s;
+  }
+  .slider-btn:hover { background: var(--blue-light); }
 
   /* ВЕКТУМ */
-  .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-  .tab-btn { background: var(--bg); border: none; color: var(--accent); padding: 10px 20px; border-radius: 100px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; }
-  .tab-btn.active { background: var(--accent); color: #fff; }
-  .tab-content { display: none; animation: fadeIn 0.4s ease; }
+  .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tab-btn { background: var(--bg-color); border: none; padding: 10px 20px; border-radius: 100px; font-weight: 700; cursor: pointer; color: var(--blue-mid); transition: 0.3s; }
+  .tab-btn.active { background: var(--blue-dark); color: var(--white); }
+  .tab-content { display: none; }
   .tab-content.active { display: block; }
-  .v-subtitle { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 12px; }
   
-  .roles-list { list-style: none; margin-top: 24px; background: var(--bg); padding: 20px; border-radius: 20px; }
-  .roles-list li { padding: 10px 0; border-bottom: 1px solid #fff; font-weight: 500; display: flex; gap: 10px; font-size: 15px; color: var(--accent);}
-  .roles-list li:last-child { border-bottom: none; }
-  .roles-list li::before { content: "•"; color: var(--accent); font-weight: 900; font-size: 20px; line-height: 1; }
+  .role-list { list-style: none; margin-top: 20px; }
+  .role-list li { padding: 12px 0; border-bottom: 1px solid var(--bg-color); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .role-list li::before { content: "→"; color: var(--blue-mid); font-weight: 800; }
+  .role-list li:last-child { border-bottom: none; }
 
   /* ЦЕЛИ */
-  .goals-list { list-style: none; margin-top: 10px; }
-  .goals-list li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 16px; font-weight: 500; color: #4A5568; }
-  .goals-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 16px; }
+  .goals-list { list-style: none; }
+  .goals-list li { padding: 15px 0; border-bottom: 1px solid var(--bg-color); font-size: 18px; font-weight: 600; display: flex; align-items: flex-start; gap: 12px; }
+  .goals-list li::before { content: "★"; color: var(--blue-mid); }
+  .goals-list li:last-child { border-bottom: none; }
 
-  /* ВНЕ РАБОТЫ */
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; margin-bottom: 24px; }
-  .tag { background: var(--bg); padding: 6px 14px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--accent); }
-  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media(max-width:600px){ .photo-grid { grid-template-columns: 1fr; } }
-  .photo-card { border-radius: 20px; overflow: hidden; }
-  .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
-  .photo-card:hover img { transform: scale(1.05); }
+  /* ФОТО СЕТКА */
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+  .photo-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-md); }
+  @media(max-width: 600px) { .photo-grid { grid-template-columns: 1fr; } }
 
   /* КОНТАКТЫ */
-  .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media(max-width:600px){ .contacts-grid { grid-template-columns: 1fr; } }
-  .contact-link {
-    text-decoration: none; color: var(--accent); background: var(--bg);
-    border-radius: 16px; padding: 20px; transition: all 0.3s;
-    display: flex; flex-direction: column; justify-content: center;
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-card {
+    background: var(--bg-color); padding: 20px; border-radius: var(--radius-md);
+    text-decoration: none; color: var(--blue-dark); display: flex; flex-direction: column; transition: 0.3s;
   }
-  .contact-link:hover { background: var(--accent); color: #fff; }
-  .contact-link:hover .contact-label { color: rgba(255,255,255,0.7); }
-  .contact-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #4A5568; margin-bottom: 4px; transition: color 0.3s; }
-  .contact-val { font-weight: 800; font-size: 16px; word-break: break-all; }
+  .contact-card:hover { background: var(--blue-dark); color: var(--white); }
+  .contact-card span { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--blue-mid); margin-bottom: 5px; }
+  .contact-card:hover span { color: var(--blue-light); }
+  .contact-card strong { font-size: 16px; font-weight: 800; word-break: break-all; }
 
-  footer { text-align: center; color: var(--accent); font-size: 13px; margin-top: 40px; font-weight: 600; opacity: 0.6;}
+  footer { text-align: center; padding: 40px 0; color: var(--blue-mid); font-weight: 600; font-size: 14px; }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="container">
 
   <!-- БЛОК 1: ХЕДЕР -->
-  <div class="card hero fade-in">
-    <div class="hero-text">
-      <span class="card-label">Студент-предприниматель</span>
-      <h1>Настя.<br>Делаю сложное простым.</h1>
-      <p class="lead">Председатель СтудСовета. Запускаю стартап в образовании. Верю, что бизнес — это про людей.</p>
-      <div class="btns">
-        <a href="https://t.me/Raaaaachell" class="btn btn-primary" target="_blank">Написать в Telegram</a>
-        <a href="#vektum" class="btn btn-ghost">Проект Вектум ↓</a>
+  <div class="hero-block block">
+    <div style="flex: 1;">
+      <h1>Настя.<br>Делаю <span>сложное</span> простым.</h1>
+      <p class="subtitle">Студент-предприниматель. Председатель СтудСовета. Запускаю стартап в образовании.</p>
+      <div>
+        <a href="https://t.me/Raaaaachell" class="btn" target="_blank">Написать</a>
+        <a href="#vektum" class="btn btn-outline">Вектум ↓</a>
       </div>
     </div>
     <img src="https://ne647641.github.io/nastya-site/img/main.jpg" alt="Настя" class="hero-img">
   </div>
 
-  <!-- БЛОК 1.1: ОБО МНЕ -->
-  <div class="card about-text fade-in">
-    <span class="card-label">Обо мне</span>
-    <p>Учусь на предпринимателя. Совмещаю учебу с реальными задачами: руковожу командой из 10 человек, работаю с администрацией вуза и 30 старостами. За прошлый год провели 30+ бизнес-мероприятий.</p>
-    <p>Параллельно работаю бизнес-ассистентом у предпринимателя в IT и участвую в кейс-чемпионатах («КЛЮЧ», Changellenge). Ищу свою нишу и создаю проекты, которые решают реальные проблемы.</p>
-    <div class="stats">
-      <div class="stat-box"><span class="stat-num">30+</span><span class="stat-desc">мероприятий</span></div>
-      <div class="stat-box"><span class="stat-num">10</span><span class="stat-desc">в команде</span></div>
-      <div class="stat-box"><span class="stat-num">2</span><span class="stat-desc">бизнес-идеи</span></div>
+  <!-- БЛОК 2: ОБО МНЕ -->
+  <div class="grid-2">
+    <div class="block">
+      <span class="label">Обо мне</span>
+      <p class="about-text">Учусь на предпринимателя. Совмещаю учебу с реальными задачами: руковожу командой из 10 человек, работаю с администрацией вуза и 30 старостами.</p>
+      <p class="about-text">За прошлый год провели 30+ бизнес-мероприятий. Параллельно работаю бизнес-ассистентом в IT и участвую в кейс-чемпионатах.</p>
+      <div class="stats-row">
+        <div class="stat-item"><strong>30+</strong><span>мероприятий</span></div>
+        <div class="stat-item"><strong>10</strong><span>в команде</span></div>
+      </div>
+    </div>
+
+    <!-- БЛОК 3: ДОСТИЖЕНИЯ (Слайдер) -->
+    <div class="block">
+      <span class="label">Достижения</span>
+      <div class="slider-container">
+        <div class="slide active">
+          <img src="https://ne647641.github.io/nastya-site/img/letter1.jpg" alt="Письмо 1" onclick="window.open(this.src, '_blank')">
+        </div>
+        <div class="slide">
+          <img src="https://ne647641.github.io/nastya-site/img/letter2.jpg" alt="Письмо 2" onclick="window.open(this.src, '_blank')">
+        </div>
+        <div class="slide">
+          <img src="https://ne647641.github.io/nastya-site/img/letter3.jpg" alt="Письмо 3" onclick="window.open(this.src, '_blank')">
+        </div>
+      </div>
+      <div class="slider-controls">
+        <div class="slider-dots">
+          <span class="dot active" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        <div>
+          <button class="slider-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slider-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- БЛОК 2: ДОСТИЖЕНИЯ -->
-  <div class="card fade-in">
-    <span class="card-label">Мои достижения</span>
-    <p style="margin-bottom: 20px; color: #4A5568; font-size: 15px;">Отмечена деканом факультета за вклад в развитие студенчества.</p>
-    
-    <div class="slider-container">
-      <div class="slide active">
-        <img src="https://ne647641.github.io/nastya-site/img/letter1.jpg" alt="Письмо 1" onclick="window.open(this.src, '_blank')">
-        <div class="slide-info"><strong>Церемонии вручения дипломов</strong><span>За помощь в подготовке и организации.</span></div>
-      </div>
-      <div class="slide">
-        <img src="https://ne647641.github.io/nastya-site/img/letter2.jpg" alt="Письмо 2" onclick="window.open(this.src, '_blank')">
-        <div class="slide-info"><strong>Дни Открытых Дверей</strong><span>За участие и помощь в общении с абитуриентами.</span></div>
-      </div>
-      <div class="slide">
-        <img src="https://ne647641.github.io/nastya-site/img/letter3.jpg" alt="Письмо 3" onclick="window.open(this.src, '_blank')">
-        <div class="slide-info"><strong>Развитие СтудСовета</strong><span>За активное участие в жизни факультета.</span></div>
-      </div>
-      <div class="slider-nav">
-        <button class="slider-btn" onclick="changeSlide(-1)">←</button>
-        <button class="slider-btn" onclick="changeSlide(1)">→</button>
-      </div>
-      <div class="slider-dots">
-        <span class="dot active" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- БЛОК 3: ВЕКТУМ -->
-  <div class="card fade-in" id="vektum">
-    <span class="card-label">Флагманский проект</span>
-    <h3 style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 20px;">Вектум</h3>
+  <!-- БЛОК 4: ВЕКТУМ -->
+  <div class="block" id="vektum" style="background: var(--blue-dark); color: var(--white);">
+    <span class="label" style="color: var(--blue-light);">Флагманский проект</span>
+    <h2 style="font-size: 40px; font-weight: 800; margin-bottom: 20px;">Вектум</h2>
     
     <div class="tabs">
       <button class="tab-btn active" onclick="openTab('client')">Для клиентов</button>
-      <button class="tab-btn" onclick="openTab('investor')">Для инвесторов</button>
+      <button class="tab-btn" onclick="openTab('investor')" style="background: rgba(255,255,255,0.1); color: var(--white);">Для инвесторов</button>
     </div>
     
     <div id="client" class="tab-content active">
-      <p class="v-subtitle">Представьте: вы стоите на распутье — творчество или технологии, вуз или работа.</p>
-      <p style="color: #4A5568; font-size: 15px;">Мы подбираем для вас личного ментора из числа студентов и выпускников, которые уже нашли себя. Это не скучный тест, а живой диалог и реальные задачи.</p>
-      <p style="color: #4A5568; font-size: 15px; margin-top: 10px;"><strong>Первая консультация — бесплатно.</strong></p>
+      <p style="font-size: 18px; margin-bottom: 15px; color: var(--blue-light);">Вы стоите на распутье — творчество или технологии, вуз или работа.</p>
+      <p style="margin-bottom: 15px;">Мы подбираем для вас личного ментора из числа студентов и выпускников, которые уже нашли себя. Это живой диалог и реальные задачи.</p>
+      <p><strong>Первая консультация — бесплатно.</strong></p>
     </div>
     
     <div id="investor" class="tab-content">
-      <p class="v-subtitle">Профориентация на базе университета «Синергия».</p>
-      <p style="color: #4A5568; font-size: 15px;">Целевой сегмент в крупных городах — 18 млрд рублей и растёт на 10–15% в год. Встроенная воронка через вуз даёт дешёвый трафик и быстрый старт.</p>
-      <p style="color: #4A5568; font-size: 15px; margin-top: 10px;">Готовая база наставников (40+ факультетов) и поддержка вуза делают порог входа практически нулевым.</p>
+      <p style="font-size: 18px; margin-bottom: 15px; color: var(--blue-light);">Профориентация на базе университета «Синергия».</p>
+      <p style="margin-bottom: 15px;">Целевой сегмент — 18 млрд рублей и растёт на 10–15% в год. Встроенная воронка через вуз даёт дешёвый трафик.</p>
+      <p>Готовая база наставников (40+ факультетов) делает порог входа нулевым.</p>
     </div>
 
-    <ul class="roles-list">
-      <li>2+ IT-специалиста — чтобы собрать продукт</li>
-      <li>5 волонтёров на выездные группы</li>
-      <li>10 наставников — тех, кто проведёт к понятному «куда дальше»</li>
+    <ul class="role-list" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 20px;">
+      <li style="color: var(--white); border-color: rgba(255,255,255,0.1);">2+ IT-специалиста</li>
+      <li style="color: var(--white); border-color: rgba(255,255,255,0.1);">5 волонтёров на выезды</li>
+      <li style="color: var(--white); border-color: rgba(255,255,255,0.1);">10 наставников</li>
     </ul>
   </div>
 
-  <!-- БЛОК 4: ЦЕЛИ -->
-  <div class="card fade-in">
-    <span class="card-label">Мои цели</span>
+  <!-- БЛОК 5: ЦЕЛИ -->
+  <div class="block">
+    <span class="label">Мои цели</span>
     <ul class="goals-list">
       <li>Сделать бизнес, который принесет монополию в своей нише.</li>
-      <li>Найти команду таких же активных и заряженных на победу людей.</li>
-      <li>Создать собственное бизнес-сообщество и крупный бизнес-форум.</li>
+      <li>Найти команду таких же заряженных на победу людей.</li>
+      <li>Создать собственное бизнес-сообщество и форум.</li>
       <li>Написать собственную книгу.</li>
       <li>... и это только начало пути.</li>
     </ul>
   </div>
 
-  <!-- БЛОК 5: ВНЕ РАБОТЫ -->
-  <div class="card fade-in">
-    <span class="card-label">Я вне работы</span>
-    <p style="color: #4A5568; font-size: 15px; margin-bottom: 10px;">Читаю философию (Эрих Фромм, Макиавелли, Марк Аврелий, Карл Юнг) и деловую литературу (Ицхак Адизес).</p>
-    <p style="color: #4A5568; font-size: 15px;">Меломан. Веду канал в Telegram, где разбираю когнитивные искажения и книги.</p>
-    
-    <div class="tags">
-      <span class="tag">Фромм</span><span class="tag">Макиавелли</span><span class="tag">Юнг</span><span class="tag">Фрейд</span><span class="tag">Адизес</span>
+  <!-- БЛОК 6: ВНЕ РАБОТЫ + КОНТАКТЫ -->
+  <div class="grid-2">
+    <div class="block">
+      <span class="label">Я вне работы</span>
+      <p class="about-text">Читаю философию (Фромм, Макиавелли, Юнг) и деловую литературу (Адизес). Меломан. Веду канал в Telegram.</p>
+      <div class="photo-grid">
+        <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg" alt="Цветы">
+        <img src="https://ne647641.github.io/nastya-site/img/sun.jpg" alt="Солнце">
+      </div>
     </div>
-    
-    <div class="photo-grid">
-      <div class="photo-card"><img src="https://ne647641.github.io/nastya-site/img/flowers.jpg" alt="Цветы"></div>
-      <div class="photo-card"><img src="https://ne647641.github.io/nastya-site/img/sun.jpg" alt="Солнце"></div>
-    </div>
-  </div>
 
-  <!-- БЛОК 6: КОНТАКТЫ -->
-  <div class="card fade-in">
-    <span class="card-label">Контакты</span>
-    <p style="margin-bottom: 20px; color: #4A5568; font-size: 15px;">Есть идея, проект или предложение? Пишите в Telegram.</p>
-    
-    <div class="contacts-grid">
-      <a href="https://t.me/Raaaaachell" class="contact-link" target="_blank">
-        <span class="contact-label">Telegram</span>
-        <span class="contact-val">@Raaaaachell</span>
-      </a>
-      <a href="https://t.me/tHiThinK" class="contact-link" target="_blank">
-        <span class="contact-label">Канал</span>
-        <span class="contact-val">@tHiThinK</span>
-      </a>
-      <a href="mailto:ne647641@gmail.com" class="contact-link">
-        <span class="contact-label">Почта</span>
-        <span class="contact-val">ne647641@gmail.com</span>
-      </a>
-      <a href="https://vk.ru/n.nnaastya" class="contact-link" target="_blank">
-        <span class="contact-label">ВКонтакте</span>
-        <span class="contact-val">vk.ru/n.nnaastya</span>
-      </a>
+    <div class="block">
+      <span class="label">Контакты</span>
+      <div class="contact-grid">
+        <a href="https://t.me/Raaaaachell" class="contact-card" target="_blank">
+          <span>Telegram</span>
+          <strong>@Raaaaachell</strong>
+        </a>
+        <a href="https://t.me/tHiThinK" class="contact-card" target="_blank">
+          <span>Канал</span>
+          <strong>@tHiThinK</strong>
+        </a>
+        <a href="mailto:ne647641@gmail.com" class="contact-card">
+          <span>Почта</span>
+          <strong>ne647641@gmail.com</strong>
+        </a>
+        <a href="https://vk.ru/n.nnaastya" class="contact-card" target="_blank">
+          <span>ВК</span>
+          <strong>n.nnaastya</strong>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -301,7 +343,7 @@
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+  document.querySelectorAll('.block').forEach((el) => observer.observe(el));
 
   // Вкладки
   function openTab(tabName) {
