@@ -85,14 +85,30 @@
     grid-column: span 2; grid-row: span 2;
     background: var(--block-dark); color: var(--card);
     padding: 45px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
   }
-  .grid-hero h1 { font-size: clamp(32px, 4vw, 54px); color: var(--card); margin-bottom: 20px; }
+  @media(max-width: 1000px) {
+    .grid-hero { flex-direction: column; text-align: center; }
+    .grid-hero .btn { align-self: center; }
+  }
+
+  .hero-text { flex: 1; z-index: 2; }
+  .grid-hero h1 { font-size: clamp(32px, 4vw, 50px); color: var(--card); margin-bottom: 20px; }
   .grid-hero h1 span { color: var(--bg); font-style: italic; }
-  .grid-hero .lead { font-size: 16px; color: var(--bg); margin-bottom: 30px; max-width: 400px; }
+  .grid-hero .lead { font-size: 16px; color: var(--bg); margin-bottom: 30px; }
   .grid-hero .btn { background: var(--bg); color: var(--text); }
+
   .hero-img-wrap {
-    position: absolute; bottom: -30px; right: -30px; width: 55%; height: 75%;
-    border-radius: 40px 0 0 0; overflow: hidden;
+    flex: 1;
+    height: 100%;
+    min-height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
   }
   .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -117,10 +133,9 @@
   .slide { display: none; flex: 1; padding: 35px; flex-direction: column; }
   .slide.active { display: flex; }
   
-  /* Ограничение картинок, чтобы не ломали сетку */
   .slide-img-container {
     width: 100%;
-    height: 250px; /* Фиксированная высота для картинки */
+    height: 220px; /* Фиксированная высота */
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -173,7 +188,6 @@
 
   @media(max-width: 1000px) {
     .bento-container { display: flex; flex-direction: column; }
-    .hero-img-wrap { position: relative; width: 100%; height: 300px; bottom: 0; right: 0; margin-top: 20px; border-radius: 20px;}
   }
 </style>
 </head>
@@ -181,8 +195,9 @@
 
 <div class="bento-container">
 
+  <!-- ГЛАВНЫЙ БЛОК (ИСПРАВЛЕН) -->
   <div class="bento-item grid-hero">
-    <div>
+    <div class="hero-text">
       <span class="label" style="color: var(--bg);">Студент-предприниматель</span>
       <h1>Настя.<br>Делаю <span>сложное</span> простым.</h1>
       <p class="lead">Председатель СтудСовета. Запускаю стартап в образовании. Верю, что бизнес — это про людей.</p>
@@ -228,9 +243,17 @@
       <h3 style="font-size: 18px;">Дни Открытых Дверей</h3>
       <p style="font-size: 13px;">За помощь в общении с абитуриентами.</p>
     </div>
+    <div class="slide">
+      <span class="label">Достижения</span>
+      <div class="slide-img-container">
+        <img src="https://ne647641.github.io/nastya-site/img/letter3.jpg">
+      </div>
+      <h3 style="font-size: 18px;">Развитие СтудСовета</h3>
+      <p style="font-size: 13px;">За активное участие в жизни факультета.</p>
+    </div>
     
     <div class="slider-controls">
-      <div><span class="dot active" onclick="currentSlide(1, 'achieve')"></span><span class="dot" onclick="currentSlide(2, 'achieve')"></span></div>
+      <div><span class="dot active" onclick="currentSlide(1, 'achieve')"></span><span class="dot" onclick="currentSlide(2, 'achieve')"></span><span class="dot" onclick="currentSlide(3, 'achieve')"></span></div>
       <div><button class="nav-btn" onclick="changeSlide(-1, 'achieve')">←</button><button class="nav-btn" onclick="changeSlide(1, 'achieve')">→</button></div>
     </div>
   </div>
@@ -240,7 +263,7 @@
     <div class="slide active">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
-        <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg"> <!-- Заглушка -->
+        <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg">
       </div>
       <h3 style="font-size: 18px; color: var(--card);">Название книги 1</h3>
       <p style="font-size: 13px; color: var(--bg);">Автор. Почему стоит прочитать.</p>
@@ -248,7 +271,7 @@
     <div class="slide">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
-        <img src="https://ne647641.github.io/nastya-site/img/sun.jpg"> <!-- Заглушка -->
+        <img src="https://ne647641.github.io/nastya-site/img/sun.jpg">
       </div>
       <h3 style="font-size: 18px; color: var(--card);">Название книги 2</h3>
       <p style="font-size: 13px; color: var(--bg);">Автор. Почему стоит прочитать.</p>
@@ -264,14 +287,14 @@
   <div class="bento-item grid-events">
     <span class="label">Мероприятия</span>
     <div class="event-item">
-      <img src="https://ne647641.github.io/nastya-site/img/main.jpg" class="event-img"> <!-- Заглушка -->
+      <img src="https://ne647641.github.io/nastya-site/img/main.jpg" class="event-img">
       <div class="event-text">
         <h4>Synergy Woman Forum</h4>
         <p>Помощь в организации масштабного события.</p>
       </div>
     </div>
     <div class="event-item">
-      <img src="https://ne647641.github.io/nastya-site/img/main.jpg" class="event-img"> <!-- Заглушка -->
+      <img src="https://ne647641.github.io/nastya-site/img/main.jpg" class="event-img">
       <div class="event-text">
         <h4>Дни Открытых Дверей</h4>
         <p>Помощь факультету в общении с абитуриентами.</p>
