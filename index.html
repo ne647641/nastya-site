@@ -51,7 +51,6 @@
     border: 1px solid rgba(255,255,255,0.4);
   }
 
-  /* Типографика */
   h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.1; }
   p { font-weight: 400; color: var(--text); opacity: 0.85; font-size: 15px;}
   
@@ -102,13 +101,8 @@
   .grid-hero .btn { background: var(--bg); color: var(--text); }
 
   .hero-img-wrap {
-    flex: 1;
-    height: 100%;
-    min-height: 250px;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
+    flex: 1; height: 100%; min-height: 250px;
+    border-radius: 20px; overflow: hidden; position: relative; z-index: 1;
   }
   .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -124,7 +118,7 @@
 
   .grid-vektum { grid-column: span 1; background: var(--bg); }
 
-  /* СЛАЙДЕРЫ (Жесткие рамки) */
+  /* СЛАЙДЕРЫ (ИСПРАВЛЕННЫЕ) */
   .grid-achievements, .grid-books {
     grid-column: span 2; grid-row: span 2;
     padding: 0; display: flex; flex-direction: column;
@@ -133,22 +127,26 @@
   .slide { display: none; flex: 1; padding: 35px; flex-direction: column; }
   .slide.active { display: flex; }
   
+  /* Новый контейнер для картинок */
   .slide-img-container {
     width: 100%;
-    height: 220px; /* Фиксированная высота */
+    flex: 1; /* Занимает все свободное место */
+    min-height: 250px;
+    max-height: 400px; /* Ограничение сверху */
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--white);
-    border-radius: 20px;
-    padding: 10px;
     overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgba(35, 24, 21, 0.1); /* Тонкая рамка */
   }
+  
+  /* Картинка заполняет контейнер */
   .slide-img-container img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняет все пространство */
     cursor: pointer;
   }
 
@@ -158,10 +156,10 @@
   .nav-btn { background: var(--bg); border: none; color: var(--text); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 18px;}
   .nav-btn:hover { background: var(--block-dark); color: var(--card); }
 
-  /* Стили для книг (темный фон) */
+  /* Стили для книг */
   .grid-books { background: var(--block-dark); color: var(--card); }
   .grid-books .label { color: var(--bg); }
-  .grid-books .slide-img-container { background: rgba(255,255,255,0.05); }
+  .grid-books .slide-img-container { border-color: rgba(255,255,255,0.1); }
   .grid-books .nav-btn { background: rgba(255,255,255,0.1); color: var(--card); }
   .grid-books .dot { background: rgba(255,255,255,0.2); }
   .grid-books .dot.active { background: var(--bg); }
@@ -195,7 +193,6 @@
 
 <div class="bento-container">
 
-  <!-- ГЛАВНЫЙ БЛОК (ИСПРАВЛЕН) -->
   <div class="bento-item grid-hero">
     <div class="hero-text">
       <span class="label" style="color: var(--bg);">Студент-предприниматель</span>
@@ -263,6 +260,7 @@
     <div class="slide active">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
+        <!-- Заглушка, заменим на книгу -->
         <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg">
       </div>
       <h3 style="font-size: 18px; color: var(--card);">Название книги 1</h3>
@@ -271,6 +269,7 @@
     <div class="slide">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
+        <!-- Заглушка, заменим на книгу -->
         <img src="https://ne647641.github.io/nastya-site/img/sun.jpg">
       </div>
       <h3 style="font-size: 18px; color: var(--card);">Название книги 2</h3>
