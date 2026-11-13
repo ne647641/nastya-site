@@ -122,6 +122,7 @@
   .grid-achievements, .grid-books {
     grid-column: span 2; grid-row: span 2;
     padding: 0; display: flex; flex-direction: column;
+    min-height: 450px; /* Увеличили высоту */
   }
   
   .slide { display: none; flex: 1; padding: 35px; flex-direction: column; }
@@ -131,22 +132,22 @@
   .slide-img-container {
     width: 100%;
     flex: 1; /* Занимает все свободное место */
-    min-height: 250px;
-    max-height: 400px; /* Ограничение сверху */
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     border-radius: 12px;
-    border: 1px solid rgba(35, 24, 21, 0.1); /* Тонкая рамка */
+    background: var(--white); /* Белый фон для документа */
+    padding: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); /* Тень для объема */
   }
   
-  /* Картинка заполняет контейнер */
+  /* Картинка вписывается полностью без обрезки */
   .slide-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Заполняет все пространство */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Вписываем полностью */
     cursor: pointer;
   }
 
@@ -159,7 +160,7 @@
   /* Стили для книг */
   .grid-books { background: var(--block-dark); color: var(--card); }
   .grid-books .label { color: var(--bg); }
-  .grid-books .slide-img-container { border-color: rgba(255,255,255,0.1); }
+  .grid-books .slide-img-container { background: transparent; box-shadow: none; }
   .grid-books .nav-btn { background: rgba(255,255,255,0.1); color: var(--card); }
   .grid-books .dot { background: rgba(255,255,255,0.2); }
   .grid-books .dot.active { background: var(--bg); }
@@ -260,7 +261,6 @@
     <div class="slide active">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
-        <!-- Заглушка, заменим на книгу -->
         <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg">
       </div>
       <h3 style="font-size: 18px; color: var(--card);">Название книги 1</h3>
@@ -269,7 +269,6 @@
     <div class="slide">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
-        <!-- Заглушка, заменим на книгу -->
         <img src="https://ne647641.github.io/nastya-site/img/sun.jpg">
       </div>
       <h3 style="font-size: 18px; color: var(--card);">Название книги 2</h3>
