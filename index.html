@@ -4,166 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Вы думали все так просто?)</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #F8F7F5;         /* Очень светлый фон */
+    --bg: #E2E8F8;         /* Нежно-голубой фон как на референсе */
     --card: #FFFFFF;       /* Белые карточки */
-    --text: #111111;       /* Черный текст */
-    --muted: #777777;      /* Серый для описаний */
-    --accent: #13273F;     /* Mystic Navy (глубокий синий) */
-    --red: #4E0000;        /* Red Inferno (винный) */
-    --radius: 28px;        /* Большие скругления */
+    --text: #1A202C;       /* Темно-серый текст */
+    --accent: #1E3A8A;     /* Глубокий синий для заголовков */
+    --accent-light: #8BA3E6; /* Светло-синий для акцентов */
+    --radius: 32px;        /* Очень большие скругления */
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
     background:var(--bg);
     color:var(--text);
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', sans-serif;
     line-height:1.6;
     padding:40px 20px;
-    -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:900px;margin:0 auto;}
 
   /* Анимация */
-  .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-  /* КАРТОЧКИ (Секции) */
+  /* Карточки */
   .card {
     background: var(--card);
     border-radius: var(--radius);
-    padding: 50px;
+    padding: 40px;
     margin-bottom: 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.05);
   }
-  @media(max-width:768px){ .card { padding: 30px 24px; } }
-  
+  @media(max-width:768px){ .card { padding: 30px 20px; } }
+
   .card-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 24px;
+    color: var(--accent);
+    margin-bottom: 20px;
     display: block;
   }
 
   /* ХЕДЕР */
   .hero { display: flex; align-items: center; gap: 40px; }
-  @media(max-width:768px){ .hero { flex-direction: column-reverse; text-align: center; gap: 24px; } }
+  @media(max-width:768px){ .hero { flex-direction: column-reverse; text-align: center; gap: 20px; } }
   .hero-text { flex: 1; }
   
   h1 {
-    font-size: clamp(38px, 6vw, 56px);
-    line-height: 1.05;
-    font-weight: 900;
-    letter-spacing: -0.04em;
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
     color: var(--accent);
     margin-bottom: 20px;
   }
-  h1 span { color: var(--red); }
   
-  .lead { font-size: 18px; color: var(--muted); margin-bottom: 32px; max-width: 450px; font-weight: 400;}
-  @media(max-width:768px){ .lead { margin: 0 auto 32px auto; } }
-
+  .lead { font-size: 16px; color: #4A5568; margin-bottom: 30px; }
+  
   .hero-img {
-    width: 280px; height: 360px; object-fit: cover; border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 260px; height: 340px; object-fit: cover; border-radius: 24px;
   }
-  @media(max-width:768px){ .hero-img { width: 100%; max-width: 280px; height: auto; aspect-ratio: 3/4; } }
+  @media(max-width:768px){ .hero-img { width: 100%; max-width: 260px; height: auto; aspect-ratio: 3/4; } }
 
   .btns { display: flex; gap: 12px; flex-wrap: wrap; }
   @media(max-width:768px){ .btns { justify-content: center; } }
   
   .btn {
     display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
-    padding: 16px 32px; border-radius: 100px; transition: all 0.3s ease; cursor: pointer; border: none;
+    padding: 14px 28px; border-radius: 100px; transition: all 0.3s ease; cursor: pointer; border: none;
   }
   .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: #1a3654; transform: translateY(-2px); }
-  .btn-ghost { background: transparent; border: 1px solid #ddd; color: var(--accent); }
-  .btn-ghost:hover { border-color: var(--accent); }
+  .btn-primary:hover { background: #152C6B; transform: translateY(-2px); }
+  .btn-ghost { background: transparent; border: 2px solid var(--accent-light); color: var(--accent); }
+  .btn-ghost:hover { border-color: var(--accent); background: var(--accent); color: #fff;}
 
   /* ОБО МНЕ */
-  .about-text p { font-size: 18px; margin-bottom: 16px; color: #333; line-height: 1.7; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .about-text p { font-size: 16px; margin-bottom: 16px; color: #4A5568; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
   @media(max-width:600px){ .stats { grid-template-columns: 1fr; } }
   
-  .stat-box { background: var(--bg); padding: 24px; border-radius: 20px; text-align: center; }
-  .stat-num { font-size: 32px; font-weight: 900; color: var(--red); display: block; margin-bottom: 4px; }
-  .stat-desc { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-box { background: var(--bg); padding: 20px; border-radius: 20px; text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--accent); display: block; margin-bottom: 4px; }
+  .stat-desc { font-size: 12px; font-weight: 600; color: #4A5568; text-transform: uppercase; letter-spacing: 0.05em; }
 
   /* СЛАЙДЕР */
   .slider-container { position: relative; max-width: 100%; margin: 0 auto; }
   .slide { display: none; text-align: center; animation: fadeIn 0.5s ease; }
   .slide.active { display: block; }
-  .slide img { width: 100%; max-height: 500px; object-fit: contain; border-radius: 16px; cursor: pointer; }
-  .slide-info { margin-top: 24px; }
-  .slide-info strong { display: block; font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
-  .slide-info span { font-size: 15px; color: var(--muted); }
+  .slide img { width: 100%; max-height: 500px; object-fit: contain; border-radius: 20px; cursor: pointer; background: var(--bg); padding: 10px;}
+  .slide-info { margin-top: 20px; }
+  .slide-info strong { display: block; font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+  .slide-info span { font-size: 14px; color: #4A5568; }
   
-  .slider-nav { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
-  .slider-btn { background: var(--bg); border: none; color: var(--accent); width: 48px; height: 48px; font-size: 20px; cursor: pointer; border-radius: 50%; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
+  .slider-nav { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+  .slider-btn { background: var(--bg); border: none; color: var(--accent); width: 44px; height: 44px; font-size: 20px; cursor: pointer; border-radius: 50%; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
   .slider-btn:hover { background: var(--accent); color: #fff; }
-  .slider-dots { text-align: center; margin-top: 20px; }
-  .dot { cursor: pointer; height: 8px; width: 8px; margin: 0 6px; background-color: #ddd; border-radius: 50%; display: inline-block; transition: background-color 0.3s; }
-  .dot.active, .dot:hover { background-color: var(--red); }
+  .slider-dots { text-align: center; margin-top: 16px; }
+  .dot { cursor: pointer; height: 8px; width: 8px; margin: 0 6px; background-color: var(--accent-light); border-radius: 50%; display: inline-block; transition: background-color 0.3s; opacity: 0.5;}
+  .dot.active, .dot:hover { background-color: var(--accent); opacity: 1;}
 
   /* ВЕКТУМ */
-  .tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
-  .tab-btn { background: var(--bg); border: none; color: var(--muted); padding: 12px 24px; border-radius: 100px; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.2s; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tab-btn { background: var(--bg); border: none; color: var(--accent); padding: 10px 20px; border-radius: 100px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; }
   .tab-btn.active { background: var(--accent); color: #fff; }
   .tab-content { display: none; animation: fadeIn 0.4s ease; }
   .tab-content.active { display: block; }
-  .v-subtitle { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 16px; }
+  .v-subtitle { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 12px; }
   
-  .roles-list { list-style: none; margin-top: 30px; background: var(--bg); padding: 24px; border-radius: 20px; }
-  .roles-list li { padding: 12px 0; border-bottom: 1px solid #eee; font-weight: 500; display: flex; gap: 12px; }
+  .roles-list { list-style: none; margin-top: 24px; background: var(--bg); padding: 20px; border-radius: 20px; }
+  .roles-list li { padding: 10px 0; border-bottom: 1px solid #fff; font-weight: 500; display: flex; gap: 10px; font-size: 15px; color: var(--accent);}
   .roles-list li:last-child { border-bottom: none; }
-  .roles-list li::before { content: "→"; color: var(--red); font-weight: 900; }
+  .roles-list li::before { content: "•"; color: var(--accent); font-weight: 900; font-size: 20px; line-height: 1; }
 
   /* ЦЕЛИ */
   .goals-list { list-style: none; margin-top: 10px; }
-  .goals-list li { position: relative; padding-left: 32px; margin-bottom: 16px; font-size: 18px; font-weight: 500; }
-  .goals-list li::before { content: "★"; position: absolute; left: 0; color: var(--red); font-size: 18px; }
+  .goals-list li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 16px; font-weight: 500; color: #4A5568; }
+  .goals-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 16px; }
 
   /* ВНЕ РАБОТЫ */
-  .hobbies-text p { font-size: 17px; margin-bottom: 16px; color: #333; }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; margin-bottom: 32px; }
-  .tag { background: var(--bg); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--accent); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; margin-bottom: 24px; }
+  .tag { background: var(--bg); padding: 6px 14px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--accent); }
   .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media(max-width:600px){ .photo-grid { grid-template-columns: 1fr; } }
-  .photo-card { border-radius: 16px; overflow: hidden; }
+  .photo-card { border-radius: 20px; overflow: hidden; }
   .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
   .photo-card:hover img { transform: scale(1.05); }
 
   /* КОНТАКТЫ */
-  .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media(max-width:600px){ .contacts-grid { grid-template-columns: 1fr; } }
   .contact-link {
-    text-decoration: none; color: var(--text); background: var(--bg);
-    border-radius: 20px; padding: 24px; transition: all 0.3s;
+    text-decoration: none; color: var(--accent); background: var(--bg);
+    border-radius: 16px; padding: 20px; transition: all 0.3s;
     display: flex; flex-direction: column; justify-content: center;
   }
   .contact-link:hover { background: var(--accent); color: #fff; }
   .contact-link:hover .contact-label { color: rgba(255,255,255,0.7); }
-  .contact-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; transition: color 0.3s; }
-  .contact-val { font-weight: 800; font-size: 18px; word-break: break-all; }
+  .contact-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #4A5568; margin-bottom: 4px; transition: color 0.3s; }
+  .contact-val { font-weight: 800; font-size: 16px; word-break: break-all; }
 
-  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 40px; font-weight: 500; }
+  footer { text-align: center; color: var(--accent); font-size: 13px; margin-top: 40px; font-weight: 600; opacity: 0.6;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- БЛОК 1: ОБО МНЕ (HERO) -->
+  <!-- БЛОК 1: ХЕДЕР -->
   <div class="card hero fade-in">
     <div class="hero-text">
       <span class="card-label">Студент-предприниматель</span>
-      <h1>Настя.<br>Делаю <span>сложное</span> простым.</h1>
+      <h1>Настя.<br>Делаю сложное простым.</h1>
       <p class="lead">Председатель СтудСовета. Запускаю стартап в образовании. Верю, что бизнес — это про людей.</p>
       <div class="btns">
         <a href="https://t.me/Raaaaachell" class="btn btn-primary" target="_blank">Написать в Telegram</a>
@@ -173,7 +167,7 @@
     <img src="https://ne647641.github.io/nastya-site/img/main.jpg" alt="Настя" class="hero-img">
   </div>
 
-  <!-- БЛОК 1.1: ТЕКСТ ОБО МНЕ -->
+  <!-- БЛОК 1.1: ОБО МНЕ -->
   <div class="card about-text fade-in">
     <span class="card-label">Обо мне</span>
     <p>Учусь на предпринимателя. Совмещаю учебу с реальными задачами: руковожу командой из 10 человек, работаю с администрацией вуза и 30 старостами. За прошлый год провели 30+ бизнес-мероприятий.</p>
@@ -188,7 +182,7 @@
   <!-- БЛОК 2: ДОСТИЖЕНИЯ -->
   <div class="card fade-in">
     <span class="card-label">Мои достижения</span>
-    <p style="margin-bottom: 32px; color: #555;">Отмечена деканом факультета за вклад в развитие студенчества.</p>
+    <p style="margin-bottom: 20px; color: #4A5568; font-size: 15px;">Отмечена деканом факультета за вклад в развитие студенчества.</p>
     
     <div class="slider-container">
       <div class="slide active">
@@ -218,7 +212,7 @@
   <!-- БЛОК 3: ВЕКТУМ -->
   <div class="card fade-in" id="vektum">
     <span class="card-label">Флагманский проект</span>
-    <h3 style="font-size: 32px; font-weight: 900; color: var(--accent); margin-bottom: 24px; letter-spacing: -0.02em;">Вектум</h3>
+    <h3 style="font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 20px;">Вектум</h3>
     
     <div class="tabs">
       <button class="tab-btn active" onclick="openTab('client')">Для клиентов</button>
@@ -227,14 +221,14 @@
     
     <div id="client" class="tab-content active">
       <p class="v-subtitle">Представьте: вы стоите на распутье — творчество или технологии, вуз или работа.</p>
-      <p>Мы подбираем для вас личного ментора из числа студентов и выпускников, которые уже нашли себя. Это не скучный тест, а живой диалог и реальные задачи.</p>
-      <p><strong>Первая консультация — бесплатно.</strong></p>
+      <p style="color: #4A5568; font-size: 15px;">Мы подбираем для вас личного ментора из числа студентов и выпускников, которые уже нашли себя. Это не скучный тест, а живой диалог и реальные задачи.</p>
+      <p style="color: #4A5568; font-size: 15px; margin-top: 10px;"><strong>Первая консультация — бесплатно.</strong></p>
     </div>
     
     <div id="investor" class="tab-content">
       <p class="v-subtitle">Профориентация на базе университета «Синергия».</p>
-      <p>Целевой сегмент в крупных городах — 18 млрд рублей и растёт на 10–15% в год. Встроенная воронка через вуз даёт дешёвый трафик и быстрый старт.</p>
-      <p>Готовая база наставников (40+ факультетов) и поддержка вуза делают порог входа практически нулевым.</p>
+      <p style="color: #4A5568; font-size: 15px;">Целевой сегмент в крупных городах — 18 млрд рублей и растёт на 10–15% в год. Встроенная воронка через вуз даёт дешёвый трафик и быстрый старт.</p>
+      <p style="color: #4A5568; font-size: 15px; margin-top: 10px;">Готовая база наставников (40+ факультетов) и поддержка вуза делают порог входа практически нулевым.</p>
     </div>
 
     <ul class="roles-list">
@@ -256,11 +250,11 @@
     </ul>
   </div>
 
-  <!-- БЛОК 5: Я ВНЕ РАБОТЫ -->
-  <div class="card fade-in hobbies-text">
+  <!-- БЛОК 5: ВНЕ РАБОТЫ -->
+  <div class="card fade-in">
     <span class="card-label">Я вне работы</span>
-    <p>Читаю философию (Эрих Фромм, Макиавелли, Марк Аврелий, Карл Юнг) и деловую литературу (Ицхак Адизес).</p>
-    <p>Меломан. Веду канал в Telegram, где разбираю когнитивные искажения и книги.</p>
+    <p style="color: #4A5568; font-size: 15px; margin-bottom: 10px;">Читаю философию (Эрих Фромм, Макиавелли, Марк Аврелий, Карл Юнг) и деловую литературу (Ицхак Адизес).</p>
+    <p style="color: #4A5568; font-size: 15px;">Меломан. Веду канал в Telegram, где разбираю когнитивные искажения и книги.</p>
     
     <div class="tags">
       <span class="tag">Фромм</span><span class="tag">Макиавелли</span><span class="tag">Юнг</span><span class="tag">Фрейд</span><span class="tag">Адизес</span>
@@ -275,7 +269,7 @@
   <!-- БЛОК 6: КОНТАКТЫ -->
   <div class="card fade-in">
     <span class="card-label">Контакты</span>
-    <p style="margin-bottom: 24px; color: #555;">Есть идея, проект или предложение? Пишите в Telegram.</p>
+    <p style="margin-bottom: 20px; color: #4A5568; font-size: 15px;">Есть идея, проект или предложение? Пишите в Telegram.</p>
     
     <div class="contacts-grid">
       <a href="https://t.me/Raaaaachell" class="contact-link" target="_blank">
@@ -301,7 +295,7 @@
 </div>
 
 <script>
-  // Анимация появления карточек
+  // Анимация появления
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -309,7 +303,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
-  // Логика вкладок
+  // Вкладки
   function openTab(tabName) {
     let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tab-content");
@@ -320,7 +314,7 @@
     event.currentTarget.classList.add("active");
   }
 
-  // Логика слайдера
+  // Слайдер
   let slideIndex = 1;
   showSlides(slideIndex);
   function changeSlide(n) { showSlides(slideIndex += n); }
