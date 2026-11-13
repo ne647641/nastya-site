@@ -118,36 +118,34 @@
 
   .grid-vektum { grid-column: span 1; background: var(--bg); }
 
-  /* СЛАЙДЕРЫ (ИСПРАВЛЕННЫЕ) */
+  /* СЛАЙДЕРЫ */
   .grid-achievements, .grid-books {
     grid-column: span 2; grid-row: span 2;
     padding: 0; display: flex; flex-direction: column;
-    min-height: 450px; /* Увеличили высоту */
+    min-height: 450px;
   }
   
   .slide { display: none; flex: 1; padding: 35px; flex-direction: column; }
   .slide.active { display: flex; }
   
-  /* Новый контейнер для картинок */
   .slide-img-container {
     width: 100%;
-    flex: 1; /* Занимает все свободное место */
+    flex: 1;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     border-radius: 12px;
-    background: var(--white); /* Белый фон для документа */
+    background: var(--white);
     padding: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05); /* Тень для объема */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
   }
   
-  /* Картинка вписывается полностью без обрезки */
   .slide-img-container img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* Вписываем полностью */
+    object-fit: contain;
     cursor: pointer;
   }
 
@@ -256,27 +254,72 @@
     </div>
   </div>
 
-  <!-- Слайдер Книг -->
+  <!-- НОВЫЙ Слайдер Книг (6 книг) -->
   <div class="bento-item grid-books">
+    <!-- Книга 1 -->
     <div class="slide active">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
-        <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg">
+        <img src="https://ne647641.github.io/nastya-site/img/book1.jpg">
       </div>
-      <h3 style="font-size: 18px; color: var(--card);">Название книги 1</h3>
-      <p style="font-size: 13px; color: var(--bg);">Автор. Почему стоит прочитать.</p>
+      <h3 style="font-size: 18px; color: var(--card);">Стили Менеджмента</h3>
+      <p style="font-size: 13px; color: var(--bg);">Ицхак Адизес. Эффективные и неэффективные.</p>
     </div>
+    <!-- Книга 2 -->
     <div class="slide">
       <span class="label">Библиотека</span>
       <div class="slide-img-container">
-        <img src="https://ne647641.github.io/nastya-site/img/sun.jpg">
+        <img src="https://ne647641.github.io/nastya-site/img/book2.jpg">
       </div>
-      <h3 style="font-size: 18px; color: var(--card);">Название книги 2</h3>
-      <p style="font-size: 13px; color: var(--bg);">Автор. Почему стоит прочитать.</p>
+      <h3 style="font-size: 18px; color: var(--card);">Идеальный руководитель</h3>
+      <p style="font-size: 13px; color: var(--bg);">Ицхак Адизес. Почему им нельзя стать.</p>
+    </div>
+    <!-- Книга 3 -->
+    <div class="slide">
+      <span class="label">Библиотека</span>
+      <div class="slide-img-container">
+        <img src="https://ne647641.github.io/nastya-site/img/book3.jpg">
+      </div>
+      <h3 style="font-size: 18px; color: var(--card);">Управление Изменениями</h3>
+      <p style="font-size: 13px; color: var(--bg);">Ицхак Адизес. Без потрясений и конфликтов.</p>
+    </div>
+    <!-- Книга 4 -->
+    <div class="slide">
+      <span class="label">Библиотека</span>
+      <div class="slide-img-container">
+        <img src="https://ne647641.github.io/nastya-site/img/book4.jpg">
+      </div>
+      <h3 style="font-size: 18px; color: var(--card);">Управление в кризиса</h3>
+      <p style="font-size: 13px; color: var(--bg);">Ицхак Адизес. Как выжить и стать сильнее.</p>
+    </div>
+    <!-- Книга 5 -->
+    <div class="slide">
+      <span class="label">Библиотека</span>
+      <div class="slide-img-container">
+        <img src="https://ne647641.github.io/nastya-site/img/book5.jpg">
+      </div>
+      <h3 style="font-size: 18px; color: var(--card);">45 татуировок менеджера</h3>
+      <p style="font-size: 13px; color: var(--bg);">Максим Батырев.</p>
+    </div>
+    <!-- Книга 6 -->
+    <div class="slide">
+      <span class="label">Библиотека</span>
+      <div class="slide-img-container">
+        <img src="https://ne647641.github.io/nastya-site/img/book6.jpg">
+      </div>
+      <h3 style="font-size: 18px; color: var(--card);">PIXAR перезагрузка</h3>
+      <p style="font-size: 13px; color: var(--bg);">Лоуренс Леви.</p>
     </div>
     
     <div class="slider-controls">
-      <div><span class="dot active" onclick="currentSlide(1, 'books')"></span><span class="dot" onclick="currentSlide(2, 'books')"></span></div>
+      <div>
+        <span class="dot active" onclick="currentSlide(1, 'books')"></span>
+        <span class="dot" onclick="currentSlide(2, 'books')"></span>
+        <span class="dot" onclick="currentSlide(3, 'books')"></span>
+        <span class="dot" onclick="currentSlide(4, 'books')"></span>
+        <span class="dot" onclick="currentSlide(5, 'books')"></span>
+        <span class="dot" onclick="currentSlide(6, 'books')"></span>
+      </div>
       <div><button class="nav-btn" onclick="changeSlide(-1, 'books')">←</button><button class="nav-btn" onclick="changeSlide(1, 'books')">→</button></div>
     </div>
   </div>
