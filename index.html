@@ -6,14 +6,19 @@
 <title>Вы думали все так просто?)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0E0E10;         /* Глубокий графит */
-    --card: #1A1A1E;       /* Чуть светлее для ячеек */
-    --text: #F4F4F5;       /* Мягкий белый */
-    --muted: #8E8E93;      /* Серый */
-    --accent: #D4A3A3;     /* Пыльно-розовый (не яркий) */
+    /* ИЗНАЧАЛЬНАЯ ПАЛИТРА */
+    --bg: #A5BCD6;         /* Cerulean Blue (фон) */
+    --card: #F5EFC6;       /* Transparent Yellow (карточки) */
+    --text: #231815;       /* Java Brown (текст) */
+    --accent: #4D0E12;     /* Sceptre Red (винный) */
+    --block-dark: #4A2E27; /* Potting Soil (темные элементы) */
+    --white: #FFFFFF;
+    
+    --radius: 32px;
+    --shadow: 0 20px 40px rgba(35, 24, 21, 0.1);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,108 +37,103 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(200px, auto);
-    gap: 16px;
+    gap: 20px;
+    grid-auto-rows: minmax(220px, auto);
   }
 
-  /* Базовый стиль ячейки */
+  /* Объемная базовая ячейка */
   .bento-item {
     background: var(--card);
-    border-radius: 32px;
-    padding: 30px;
+    border-radius: var(--radius);
+    padding: 35px;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid rgba(255,255,255,0.03);
-    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.4); /* Блик для объема */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   .bento-item:hover {
-    background: #222227;
-    transform: translateY(-2px);
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(35, 24, 21, 0.15);
   }
 
   /* Типографика */
-  h1, h2, h3 { font-family: 'Unbounded', sans-serif; font-weight: 500; line-height: 1.1; }
-  p { font-weight: 300; color: #CCC; }
+  h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.1; }
+  p { font-weight: 400; color: var(--text); opacity: 0.85; font-size: 15px;}
   
   .label {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: var(--accent);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     display: block;
-    font-weight: 600;
+    font-weight: 800;
   }
 
-  /* --- СЕТКА --- */
-
-  /* Блок 1: Главный (2x2) */
-  .grid-hero {
-    grid-column: span 2;
-    grid-row: span 2;
-    padding: 40px;
-    background: linear-gradient(135deg, #1A1A1E 0%, #121214 100%);
-  }
-  .grid-hero h1 { font-size: clamp(32px, 4vw, 50px); margin-bottom: 20px; }
-  .grid-hero h1 span { color: var(--accent); }
-  .grid-hero .lead { font-size: 16px; margin-bottom: 30px; max-width: 400px; }
-  
-  .hero-img-wrap {
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 60%;
-    height: 70%;
-    border-radius: 40px;
-    overflow: hidden;
-  }
-  .hero-img-wrap img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(100%) contrast(120%);
-  }
-  @media(max-width: 900px) { .grid-hero { grid-column: span 4; } .hero-img-wrap { display: none; } }
-
-  /* Кнопка */
   .btn {
     display: inline-block;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--block-dark);
+    color: var(--card);
     text-decoration: none;
     padding: 14px 28px;
     border-radius: 100px;
     font-size: 14px;
     font-weight: 600;
     transition: 0.3s;
+    align-self: flex-start;
+    margin-top: auto;
   }
-  .btn:hover { background: var(--accent); }
+  .btn:hover { background: var(--accent); color: var(--white); }
 
-  /* Блок 2: Обо мне (2x1) */
-  .grid-about {
+  /* --- СЕТКА --- */
+
+  /* БЛОК 1: ГЛАВНЫЙ (2x2) */
+  .grid-hero {
     grid-column: span 2;
+    grid-row: span 2;
+    background: var(--block-dark);
+    color: var(--card);
+    padding: 45px;
   }
-  .grid-about p { font-size: 15px; margin-bottom: 15px; }
+  .grid-hero h1 { font-size: clamp(32px, 4vw, 54px); color: var(--card); margin-bottom: 20px; }
+  .grid-hero h1 span { color: var(--bg); font-style: italic; }
+  .grid-hero .lead { font-size: 16px; color: var(--bg); margin-bottom: 30px; max-width: 400px; }
+  .grid-hero .btn { background: var(--bg); color: var(--text); }
+  .grid-hero .btn:hover { background: var(--accent); color: var(--white); }
 
-  /* Блок 3: Цифры (1x1) */
+  .hero-img-wrap {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 55%;
+    height: 75%;
+    border-radius: 40px 0 0 0;
+    overflow: hidden;
+  }
+  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* БЛОК 2: ОБО МНЕ (2x1) */
+  .grid-about { grid-column: span 2; justify-content: center; }
+  .grid-about p { font-size: 16px; margin-bottom: 15px; }
+
+  /* БЛОК 3: ЦИФРЫ (1x1) */
   .grid-stats {
     grid-column: span 1;
     text-align: center;
     justify-content: center;
     background: var(--accent);
-    color: var(--bg);
+    color: var(--card);
   }
-  .grid-stats h2 { font-size: 48px; color: var(--bg); }
-  .grid-stats p { color: var(--bg); opacity: 0.8; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-top: 10px;}
+  .grid-stats h2 { font-size: 56px; color: var(--card); margin-bottom: 10px; }
+  .grid-stats p { color: var(--card); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; font-weight: 800; opacity: 0.9;}
 
-  /* Блок 4: Вектум (2x1) */
-  .grid-vektum {
-    grid-column: span 2;
-    background: var(--card);
-  }
-  
-  /* Блок 5: Слайдер Достижений (2x2) */
+  /* БЛОК 4: ВЕКТУМ (1x1) */
+  .grid-vektum { grid-column: span 1; background: var(--bg); }
+
+  /* БЛОК 5: ДОСТИЖЕНИЯ (Слайдер писем) (2x2) */
   .grid-achievements {
     grid-column: span 2;
     grid-row: span 2;
@@ -141,40 +141,80 @@
     display: flex;
     flex-direction: column;
   }
-  .slide { display: none; flex: 1; padding: 30px; }
-  .slide.active { display: flex; flex-direction: column; }
-  .slide img { width: 100%; flex: 1; object-fit: contain; border-radius: 16px; cursor: pointer; background: #fff; margin-bottom: 20px;}
-  .slider-controls { display: flex; justify-content: space-between; padding: 0 30px 30px 30px; }
-  .dot { width: 8px; height: 8px; background: #444; border-radius: 50%; cursor: pointer; display: inline-block; margin-right: 6px;}
-  .dot.active { background: var(--accent); }
-  .nav-btn { background: none; border: 1px solid #444; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.3s;}
-  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .slide { display: none; flex: 1; padding: 35px; flex-direction: column; }
+  .slide.active { display: flex; }
+  .slide img { width: 100%; flex: 1; object-fit: contain; border-radius: 20px; cursor: pointer; background: var(--white); margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);}
+  .slider-controls { display: flex; justify-content: space-between; padding: 0 35px 35px 35px; align-items: center;}
+  
+  .dot { width: 10px; height: 10px; background: rgba(77, 14, 18, 0.2); border-radius: 50%; cursor: pointer; display: inline-block; margin-right: 8px; transition: 0.3s;}
+  .dot.active { background: var(--accent); transform: scale(1.2); }
+  .nav-btn { background: var(--bg); border: none; color: var(--text); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; transition: 0.3s; font-size: 18px;}
+  .nav-btn:hover { background: var(--block-dark); color: var(--card); }
 
-  /* Блок 6: Цели (2x2) */
-  .grid-goals {
+  /* БЛОК 6: КНИГИ (Слайдер книг) (2x2) */
+  .grid-books {
     grid-column: span 2;
     grid-row: span 2;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--block-dark);
+    color: var(--card);
   }
-  .goals-list { list-style: none; margin-top: 20px; }
-  .goals-list li { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 15px; display: flex; gap: 15px;}
-  .goals-list li::before { content: "↗"; color: var(--accent); }
-  
-  /* Блок 7: Хобби / Контакты (1x1 и 1x1) */
-  .grid-hobby { grid-column: span 1; }
-  .grid-contact { grid-column: span 1; display: flex; flex-direction: column; justify-content: center; }
-  .contact-link { display: block; text-decoration: none; color: var(--text); padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; font-size: 14px;}
-  .contact-link:hover { color: var(--accent); padding-left: 5px; }
-  
-  .grid-photo { grid-column: span 1; grid-row: span 2; padding: 0; }
-  .grid-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; filter: grayscale(100%); transition: 0.3s; }
-  .grid-photo:hover img { filter: grayscale(0%); }
+  .grid-books .slide { padding: 35px; }
+  .grid-books .label { color: var(--bg); }
+  .grid-books .slide img { background: transparent; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+  .grid-books .slider-controls { padding: 0 35px 35px 35px; }
+  .grid-books .nav-btn { background: rgba(255,255,255,0.1); color: var(--card); }
+  .grid-books .nav-btn:hover { background: var(--card); color: var(--text); }
+  .grid-books .dot { background: rgba(255,255,255,0.2); }
+  .grid-books .dot.active { background: var(--bg); }
 
-  /* Адаптация для мобильных */
-  @media(max-width: 900px) {
+  /* БЛОК 7: МЕРОПРИЯТИЯ (2x2) */
+  .grid-events {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: var(--card);
+  }
+  .event-item {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+  }
+  .event-img {
+    width: 100px; height: 100px;
+    border-radius: 12px;
+    background: var(--bg);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .event-text h4 { font-size: 16px; margin-bottom: 5px; color: var(--accent); font-family: 'Inter', sans-serif; font-weight: 800;}
+  .event-text p { font-size: 13px; }
+
+  /* БЛОК 8: ЦЕЛИ (2x1) */
+  .grid-goals { grid-column: span 2; }
+  .goals-list { list-style: none; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;}
+  .goals-list li { background: var(--white); padding: 10px 15px; border-radius: 12px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px;}
+  .goals-list li::before { content: "★"; color: var(--accent); }
+
+  /* БЛОК 9: КОНТАКТЫ (1x1) */
+  .grid-contact { grid-column: span 1; justify-content: center; }
+  .contact-link { display: block; text-decoration: none; color: var(--text); padding: 12px 0; border-bottom: 1px solid rgba(35, 24, 21, 0.1); transition: 0.3s; font-size: 15px; font-weight: 600;}
+  .contact-link:hover { color: var(--accent); padding-left: 5px; }
+
+  /* БЛОК 10: ФОТО (1x1) */
+  .grid-photo { grid-column: span 1; padding: 0; }
+  .grid-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Адаптив */
+  @media(max-width: 1000px) {
     .bento-container { display: flex; flex-direction: column; }
-    .hero-img-wrap { position: relative; width: 100%; height: 300px; bottom: 0; right: 0; margin-top: 20px;}
-    .grid-achievements { height: 500px; }
-    .grid-photo { height: 300px; }
+    .hero-img-wrap { position: relative; width: 100%; height: 300px; bottom: 0; right: 0; margin-top: 20px; border-radius: 20px;}
+    .grid-achievements, .grid-books, .grid-events { height: auto; min-height: 500px; }
   }
 </style>
 </head>
@@ -182,41 +222,41 @@
 
 <div class="bento-container">
 
-  <!-- БЛОК 1: ГЛАВНЫЙ -->
+  <!-- 1. ГЛАВНЫЙ ЭКРАН -->
   <div class="bento-item grid-hero">
     <div>
-      <span class="label">Студент-предприниматель</span>
+      <span class="label" style="color: var(--bg);">Студент-предприниматель</span>
       <h1>Настя.<br>Делаю <span>сложное</span> простым.</h1>
       <p class="lead">Председатель СтудСовета. Запускаю стартап в образовании. Верю, что бизнес — это про людей.</p>
-      <a href="https://t.me/Raaaaachell" class="btn" target="_blank">Написать</a>
+      <a href="https://t.me/Raaaaachell" class="btn" target="_blank">Написать мне</a>
     </div>
     <div class="hero-img-wrap">
       <img src="https://ne647641.github.io/nastya-site/img/main.jpg" alt="Настя">
     </div>
   </div>
 
-  <!-- БЛОК 2: ОБО МНЕ -->
+  <!-- 2. ОБО МНЕ -->
   <div class="bento-item grid-about">
     <span class="label">Обо мне</span>
     <p>Учусь на предпринимателя. Совмещаю учебу с реальными задачами: руковожу командой из 10 человек, работаю с администрацией вуза и 30 старостами.</p>
     <p>За прошлый год провели 30+ бизнес-мероприятий. Параллельно работаю бизнес-ассистентом в IT и участвую в кейс-чемпионатах.</p>
   </div>
 
-  <!-- БЛОК 3: ЦИФРА (Акцентная ячейка) -->
+  <!-- 3. ЦИФРА -->
   <div class="bento-item grid-stats">
     <h2>30+</h2>
     <p>Мероприятий</p>
   </div>
 
-  <!-- БЛОК 4: ВЕКТУМ -->
+  <!-- 4. ВЕКТУМ -->
   <div class="bento-item grid-vektum">
     <span class="label">Флагман</span>
-    <h3 style="font-size: 24px; margin-bottom: 15px;">Вектум</h3>
-    <p style="font-size: 14px;">Профориентация на базе университета. Мы подбираем личного ментора из числа студентов и выпускников, которые уже нашли себя.</p>
-    <a href="https://t.me/Raaaaachell" style="color: var(--accent); text-decoration: none; margin-top: 15px; font-size: 14px; font-weight: 600;">Узнать больше →</a>
+    <h3 style="font-size: 22px; margin-bottom: 10px;">Вектум</h3>
+    <p style="font-size: 13px;">Профориентация на базе вуза. Подбираем личного ментора из числа успешных студентов и выпускников.</p>
+    <a href="https://t.me/Raaaaachell" style="color: var(--accent); text-decoration: none; margin-top: 15px; font-size: 13px; font-weight: 800;">Узнать больше →</a>
   </div>
 
-  <!-- БЛОК 5: ДОСТИЖЕНИЯ (Слайдер) -->
+  <!-- 5. ДОСТИЖЕНИЯ (Письма) -->
   <div class="bento-item grid-achievements">
     <div class="slide active">
       <span class="label">Достижения</span>
@@ -237,42 +277,83 @@
       <p style="font-size: 13px;">За активное участие в жизни факультета.</p>
     </div>
     
-    <div class="slider-controls">
+    <div class="slider-controls" id="ctrl-achievements">
       <div>
-        <span class="dot active" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot active" onclick="currentSlide(1, 'achieve')"></span>
+        <span class="dot" onclick="currentSlide(2, 'achieve')"></span>
+        <span class="dot" onclick="currentSlide(3, 'achieve')"></span>
       </div>
       <div>
-        <button class="nav-btn" onclick="changeSlide(-1)">←</button>
-        <button class="nav-btn" onclick="changeSlide(1)">→</button>
+        <button class="nav-btn" onclick="changeSlide(-1, 'achieve')">←</button>
+        <button class="nav-btn" onclick="changeSlide(1, 'achieve')">→</button>
       </div>
     </div>
   </div>
 
-  <!-- БЛОК 6: ЦЕЛИ -->
+  <!-- 6. КНИГИ (Слайдер) -->
+  <div class="bento-item grid-books">
+    <div class="slide active">
+      <span class="label">Библиотека</span>
+      <!-- ВСТАВЬ СЮДА ФОТО КНИГИ 1 -->
+      <img src="https://ne647641.github.io/nastya-site/img/flowers.jpg" style="object-fit: contain; height: 200px;">
+      <h3 style="font-size: 18px; margin-top: 15px; margin-bottom: 5px;">Название книги 1</h3>
+      <p style="font-size: 13px; color: var(--bg); opacity: 0.8;">Автор. Короткое описание, почему эта книга важна.</p>
+    </div>
+    <div class="slide">
+      <span class="label">Библиотека</span>
+      <!-- ВСТАВЬ СЮДА ФОТО КНИГИ 2 -->
+      <img src="https://ne647641.github.io/nastya-site/img/sun.jpg" style="object-fit: contain; height: 200px;">
+      <h3 style="font-size: 18px; margin-top: 15px; margin-bottom: 5px;">Название книги 2</h3>
+      <p style="font-size: 13px; color: var(--bg); opacity: 0.8;">Автор. Короткое описание.</p>
+    </div>
+    
+    <div class="slider-controls">
+      <div>
+        <span class="dot active" onclick="currentSlide(1, 'books')"></span>
+        <span class="dot" onclick="currentSlide(2, 'books')"></span>
+      </div>
+      <div>
+        <button class="nav-btn" onclick="changeSlide(-1, 'books')">←</button>
+        <button class="nav-btn" onclick="changeSlide(1, 'books')">→</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. МЕРОПРИЯТИЯ -->
+  <div class="bento-item grid-events">
+    <span class="label">Мероприятия</span>
+    
+    <div class="event-item">
+      <!-- ВСТАВЬ СЮДА ФОТО МЕРОПРИЯТИЯ 1 -->
+      <img src="https://ne647641.github.io/nastya-site/img/main.jpg" class="event-img">
+      <div class="event-text">
+        <h4>Synergy Woman Forum</h4>
+        <p>Помощь в организации одного из самых масштабных событий весны 2025 года.</p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <!-- ВСТАВЬ СЮДА ФОТО МЕРОПРИЯТИЯ 2 -->
+      <img src="https://ne647641.github.io/nastya-site/img/main.jpg" class="event-img">
+      <div class="event-text">
+        <h4>Дни Открытых Дверей</h4>
+        <p>Регулярное участие и помощь факультету в общении с абитуриентами.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. ЦЕЛИ -->
   <div class="bento-item grid-goals">
     <span class="label">Цели</span>
     <ul class="goals-list">
-      <li>Сделать бизнес, который принесет монополию в своей нише.</li>
-      <li>Найти команду таких же заряженных на победу людей.</li>
-      <li>Создать собственное бизнес-сообщество и форум.</li>
-      <li>Написать собственную книгу.</li>
+      <li>Бизнес-монополия</li>
+      <li>Заряженная команда</li>
+      <li>Бизнес-сообщество</li>
+      <li>Своя книга</li>
     </ul>
   </div>
 
-  <!-- БЛОК 7: ХОББИ -->
-  <div class="bento-item grid-hobby">
-    <span class="label">Вне работы</span>
-    <p style="font-size: 13px;">Читаю философию (Фромм, Макиавелли) и деловую литературу (Адизес). Меломан.</p>
-  </div>
-
-  <!-- БЛОК 8: ФОТО -->
-  <div class="bento-item grid-photo">
-    <img src="https://ne647641.github.io/nastya-site/img/sun.jpg" alt="Солнце">
-  </div>
-
-  <!-- БЛОК 9: КОНТАКТЫ -->
+  <!-- 9. КОНТАКТЫ -->
   <div class="bento-item grid-contact">
     <span class="label">Связь</span>
     <a href="https://t.me/Raaaaachell" class="contact-link" target="_blank">Telegram ↗</a>
@@ -280,21 +361,43 @@
     <a href="mailto:ne647641@gmail.com" class="contact-link">Почта ↗</a>
   </div>
 
+  <!-- 10. ФОТО -->
+  <div class="bento-item grid-photo">
+    <img src="https://ne647641.github.io/nastya-site/img/sun.jpg" alt="Фото">
+  </div>
+
 </div>
 
 <script>
-  let slideIndex = 1;
-  showSlides(slideIndex);
-  function changeSlide(n) { showSlides(slideIndex += n); }
-  function currentSlide(n) { showSlides(slideIndex = n); }
-  function showSlides(n) {
-    let i, slides = document.getElementsByClassName("slide"), dots = document.getElementsByClassName("dot");
-    if (n > slides.length) {slideIndex = 1}    
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) { slides[i].classList.remove("active"); }
-    for (i = 0; i < dots.length; i++) { dots[i].classList.remove("active"); }
-    slides[slideIndex-1].classList.add("active");  
-    dots[slideIndex-1].classList.add("active");
+  // Универсальная логика слайдеров
+  const sliders = { achieve: { index: 1 }, books: { index: 1 } };
+
+  function changeSlide(n, type) {
+    showSlides(sliders[type].index += n, type);
+  }
+
+  function currentSlide(n, type) {
+    showSlides(sliders[type].index = n, type);
+  }
+
+  function showSlides(n, type) {
+    let i;
+    let container = document.querySelector(type === 'achieve' ? '.grid-achievements' : '.grid-books');
+    let slides = container.getElementsByClassName("slide");
+    let dots = container.getElementsByClassName("dot");
+    
+    if (n > slides.length) { sliders[type].index = 1 }    
+    if (n < 1) { sliders[type].index = slides.length }
+    
+    for (i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");  
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].classList.remove("active");
+    }
+    
+    slides[sliders[type].index - 1].classList.add("active");  
+    dots[sliders[type].index - 1].classList.add("active");
   }
 </script>
 </body>
